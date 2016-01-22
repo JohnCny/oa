@@ -228,17 +228,17 @@ def approve(user_id,expense_id,result,reason):
             #     reimbursement.is_paid = '1'
             #     reimbursement.paid_date= datetime.datetime.now()
             #如果当前是财务审批,转入人事
-            if reimbursement.approval_type==3:
+            if str(reimbursement.approval_type)=='3':
                 reimbursement.approval_type=4
             #如果当前是副总审批，转入财务
-            elif role.role_level==7:
+            elif str(role.role_level)=='7':
                 reimbursement.approval_type=3
 
             #如果当前是总裁审批，转入财务
-            elif role.role_level==8:
+            elif str(role.role_level)=='8':
                 reimbursement.approval_type=3
             #部门审批阶段
-            elif reimbursement.approval_type==1:
+            elif str(reimbursement.approval_type)=='1':
                 # if power=='true':
                 #     #审批通过进入财务审批
                 #     reimbursement.approval_type=3
@@ -276,7 +276,7 @@ def approve(user_id,expense_id,result,reason):
                         org = OA_Org.query.filter_by(id=project.p_org_id).first()
                         if org:
                             if int(org.manager)==int(project.manager_id):
-                               reimbursement.approval=org.pId
+                                reimbursement.approval=org.pId
                             else:
                                 reimbursement.approval=project.p_org_id
                         reimbursement.approval_type = 1
