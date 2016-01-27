@@ -227,62 +227,60 @@ def approve(user_id,expense_id,result,reason):
             # if reimbursement.approval_type==4:
             #     reimbursement.is_paid = '1'
             #     reimbursement.paid_date= datetime.datetime.now()
-            #如果当前是财务审批,转入人事
-            if str(reimbursement.approval_type)=='3':
-                reimbursement.approval_type=4
-            #如果当前是副总审批，转入财务
-            elif str(role.role_level)=='7':
-                reimbursement.approval_type=3
 
-            #如果当前是总裁审批，转入财务
-            elif str(role.role_level)=='8':
+            #如果当前是副总、总裁审批，转入财务
+            if str(role.role_level)=='7' or str(role.role_level)=='8':
                 reimbursement.approval_type=3
-            #部门审批阶段
-            elif str(reimbursement.approval_type)=='1':
-                # if power=='true':
-                #     #审批通过进入财务审批
-                #     reimbursement.approval_type=3
-                # else:
-                org = OA_Org.query.filter_by(id=reimbursement.approval).first()
-                if org:
-                    if org.pId: 
-                        #审批通过进入上级部门审批
-                        highOrg = OA_Org.query.filter_by(id=org.pId).first()
-                        if highOrg.pId:
-                            if highOrg.manager==org.manager:
-                                reimbursement.approval=highOrg.pId
+            else:   
+                #如果当前是财务审批,转入人事
+                if str(reimbursement.approval_type)=='3':
+                    reimbursement.approval_type=4
+                #部门审批阶段
+                elif str(reimbursement.approval_type)=='1':
+                    # if power=='true':
+                    #     #审批通过进入财务审批
+                    #     reimbursement.approval_type=3
+                    # else:
+                    org = OA_Org.query.filter_by(id=reimbursement.approval).first()
+                    if org:
+                        if org.pId: 
+                            #审批通过进入上级部门审批
+                            highOrg = OA_Org.query.filter_by(id=org.pId).first()
+                            if highOrg.pId:
+                                if highOrg.manager==org.manager:
+                                    reimbursement.approval=highOrg.pId
+                                else:
+                                    reimbursement.approval=org.pId                            
+                                reimbursement.approval_type = 1
                             else:
-                                reimbursement.approval=org.pId                            
-                            reimbursement.approval_type = 1
+                               reimbursement.approval=org.pId 
+                               reimbursement.approval_type = 1
                         else:
-                           reimbursement.approval=org.pId 
-                           reimbursement.approval_type = 1
-                    else:
-                        #审批通过进入财务审批
-                        reimbursement.approval_type=3
-            #项目审批阶段
-            else:
-                # if power=='true':
-                #     #审批通过进入财务审批
-                #     reimbursement.approval_type=3
-                # else:
-                project = OA_Project.query.filter_by(id=reimbursement.approval).first()
-                if project:
-                    if project.p_project_id:
-                        #审批通过进入上级项目审批
-                        reimbursement.approval=project.p_project_id
-                    else:
-                        #审批通过进入上级部门审批(判断是否同一领导)
-                        org = OA_Org.query.filter_by(id=project.p_org_id).first()
-                        if org:
-                            if int(org.manager)==int(project.manager_id):
-                                reimbursement.approval=org.pId
-                            else:
-                                reimbursement.approval=project.p_org_id
-                        reimbursement.approval_type = 1
-            if reimbursement.approval_type is not 4:
-                #邮件通知
-                SendMail(reimbursement)
+                            #审批通过进入财务审批
+                            reimbursement.approval_type=3
+                #项目审批阶段
+                else:
+                    # if power=='true':
+                    #     #审批通过进入财务审批
+                    #     reimbursement.approval_type=3
+                    # else:
+                    project = OA_Project.query.filter_by(id=reimbursement.approval).first()
+                    if project:
+                        if project.p_project_id:
+                            #审批通过进入上级项目审批
+                            reimbursement.approval=project.p_project_id
+                        else:
+                            #审批通过进入上级部门审批(判断是否同一领导)
+                            org = OA_Org.query.filter_by(id=project.p_org_id).first()
+                            if org:
+                                if int(org.manager)==int(project.manager_id):
+                                    reimbursement.approval=org.pId
+                                else:
+                                    reimbursement.approval=project.p_org_id
+                            reimbursement.approval_type = 1
+                if reimbursement.approval_type is not 4:
+                    #邮件通知
+                    SendMail(reimbursement)
         #拒绝
         if result=='2':
             reimbursement.is_refuse = '1'
