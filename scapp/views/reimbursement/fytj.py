@@ -93,7 +93,7 @@ def fytj_Excel():
     is_paid = request.form['is_paid']
     node_id = request.form['node_id']
     node_type = request.form['node_type']
-    sql = "SELECT b.name,c.real_name,d.project_name,a.amount,a.`describe`,a.create_date,(case is_paid when '0' then '未支付' \
+    sql = "SELECT a.id,b.name,c.real_name,d.project_name,a.amount,a.`describe`,a.create_date,(case is_paid when '0' then '未支付' \
         when '1' then '已支付' end) as paid,a.paid_date FROM oa_reimbursement a, oa_org b, oa_user c,oa_project d WHERE\
         a.org_id = b.id AND a.create_user = c.id and a.project_id=d.id"
     if is_paid != '-1':
@@ -106,9 +106,19 @@ def fytj_Excel():
         sql += str(obj) + ","
     sql += "-1)"
     data=db.session.execute(sql).fetchall()
-
-    exl_hdngs=['费用所属单位','申请人','项目','金额','报销事由','创建时间','审批状态','支付时间']
-    types=     'text   text   text      text      text     datetime    text   datetime'.split()
+    # for i in data:
+    #     if i.paid=='未支付':
+    #         data_1 =OA_Reimbursement.query.filter_by(id=i.id).first()
+    #         if str(data_1.approval_type)=='1':
+    #             data_2=OA_Org.query.filter_by(id=data_1.approval).first()
+    #             i.result=data_2.name+"审批"
+    #         elif str(data_1.approval_type)=='2':
+    #             data_3=OA_Project.query.filter_by(id=data_1.approval).first()
+    #             i.result=data_3.project_name+"审批"
+    #         elif str(data_1.approval_type)=='3':
+    #             i.result="财务审批"
+    exl_hdngs=['序号','费用所属单位','申请人','项目','金额','报销事由','创建时间','审批状态','支付时间']
+    types=     'text   text   text   text      text      text     datetime    text   datetime'.split()
     exl_hdngs_xf=ezxf('font: bold on;align: wrap on,vert centre,horiz center')
     types_to_xf_map={
         'int':ezxf(num_format_str='#,##0'),
