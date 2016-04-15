@@ -41,7 +41,10 @@
 		<div class="row-fluid">			
 			<i class="icon-bookmark"></i><span class="titletip">待支付列表</span>
 			<div style="margin-bottom:10px;">
-				<input type='button' class='btn btn-success' value='批量支付' onclick="pay({{data.page}},{{data.items[0].create_user}})"/>
+				<input type='button' class='btn btn-success' value='批量支付' 
+				{%- if data.items[0] %}
+				onclick="pay({{data.page}},{{data.items[0].create_user}})"
+				{%- endif%}/>
 			</div>
 			<div style="border:1px solid #94c1dc;">				
 				<table class="table-list" cellspacing="10" id="uesr-list">
