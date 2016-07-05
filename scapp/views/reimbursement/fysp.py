@@ -66,10 +66,12 @@ def fysp_total():
             appreval ="("
             #判断是否含有财务部门
             type ='1'
+            parentId = ''
             for i in orgAll:
                 appreval=appreval+str(i.id)+","
                 if i.is_caiwu==1:
                     type='2'
+                    parentId = i.pId
             if len(appreval)>1:
                 appreval=appreval[0:len(appreval)-1]
             appreval+=")"
@@ -77,17 +79,33 @@ def fysp_total():
             #含财务部门
             if type=='2':
                 sql += " or approval_type = 3)"
+                #查询哪个机构下的财务
+                org1 = OA_Org.query.filter_by(id=parentId).first()
+                if org1:
+                    if str(org1.name)=='乾康金服':
+                        tmpsql = "FIND_IN_SET(id,getChildOrgLst('"+str(parentId)+"'))"
+                        orgs_list = OA_Org.query.filter(tmpsql).all()
+                        org_lists = "("
+                        for i in orgs_list:
+                           org_lists+=str(i.id)+","
+                        org_lists=org_lists[0:len(org_lists)-1]+")"
+                        sql += " and org_id in "+org_lists
+                    else:
+                        #乾康金服id
+                        org2 = OA_Org.query.filter_by(name="乾康金服").first()
+                        tmpsql = "FIND_IN_SET(id,getChildOrgLst('"+str(org2.id)+"'))"
+                        orgs_list = OA_Org.query.filter(tmpsql).all()
+                        org_lists = "("
+                        for i in orgs_list:
+                           org_lists+=str(i.id)+","
+                        org_lists=org_lists[0:len(org_lists)-1]+")"
+                        sql += " and org_id not in "+org_lists
             else:
                 sql += " and approval_type=1)"
         else:
            sql +=" approval is null" 
     else:
-        org = OA_Org.query.filter_by(id=org_id).first()
-        if org:
-            if org.is_caiwu=='1':
-                sql +=" approval_type = 3"
-            else:
-                sql += " (approval="+org_id+" and approval_type = 1)"
+        sql += " (approval="+org_id+" and approval_type = 1)"
     #前台没有选择项目
     da = OA_Project.query.filter("manager_id="+str(current_user.id)+" and version='2015'").all()
     if project_id == "-1":
@@ -134,10 +152,13 @@ def fysp_list(page,userId):
             appreval ="("
             #判断是否含有财务部门
             type ='1'
+            parentId = ''
+            #获取财务部门的上级id
             for i in orgAll:
                 appreval=appreval+str(i.id)+","
                 if i.is_caiwu==1:
                     type='2'
+                    parentId = i.pId
             if len(appreval)>1:
                 appreval=appreval[0:len(appreval)-1]
             appreval+=")"
@@ -145,6 +166,26 @@ def fysp_list(page,userId):
             #含财务部门
             if type=='2':
                 sql += " or approval_type = 3)"
+                #查询哪个机构下的财务
+                org1 = OA_Org.query.filter_by(id=parentId).first()
+                if org1:
+                    if str(org1.name)=='乾康金服':
+                        tmpsql = "FIND_IN_SET(id,getChildOrgLst('"+str(parentId)+"'))"
+                        orgs_list = OA_Org.query.filter(tmpsql).all()
+                        org_lists = "("
+                        for i in orgs_list:
+                           org_lists+=str(i.id)+","
+                        org_lists=org_lists[0:len(org_lists)-1]+")"
+                        sql += " and org_id in "+org_lists
+                    else:
+                        org2 = OA_Org.query.filter_by(name="乾康金服").first()
+                        tmpsql = "FIND_IN_SET(id,getChildOrgLst('"+str(org2.id)+"'))"
+                        orgs_list = OA_Org.query.filter(tmpsql).all()
+                        org_lists = "("
+                        for i in orgs_list:
+                           org_lists+=str(i.id)+","
+                        org_lists=org_lists[0:len(org_lists)-1]+")"
+                        sql += " and org_id not in "+org_lists
             else:
                 sql += " and approval_type=1)"
         else:
@@ -227,62 +268,60 @@ def approve(user_id,expense_id,result,reason):
             # if reimbursement.approval_type==4:
             #     reimbursement.is_paid = '1'
             #     reimbursement.paid_date= datetime.datetime.now()
-            #如果当前是财务审批,转入人事
-            if reimbursement.approval_type==3:
-                reimbursement.approval_type=4
-            #如果当前是副总审批，转入财务
-            elif role.role_level==7:
-                reimbursement.approval_type=3
 
-            #如果当前是总裁审批，转入财务
-            elif role.role_level==8:
+            #如果当前是副总、总裁审批，转入财务
+            if str(role.role_level)=='7' or str(role.role_level)=='8':
                 reimbursement.approval_type=3
-            #部门审批阶段
-            elif reimbursement.approval_type==1:
-                # if power=='true':
-                #     #审批通过进入财务审批
-                #     reimbursement.approval_type=3
-                # else:
-                org = OA_Org.query.filter_by(id=reimbursement.approval).first()
-                if org:
-                    if org.pId: 
-                        #审批通过进入上级部门审批
-                        highOrg = OA_Org.query.filter_by(id=org.pId).first()
-                        if highOrg.pId:
-                            if highOrg.manager==org.manager:
-                                reimbursement.approval=highOrg.pId
+            else:   
+                #如果当前是财务审批,转入人事
+                if str(reimbursement.approval_type)=='3':
+                    reimbursement.approval_type=4
+                #部门审批阶段
+                elif str(reimbursement.approval_type)=='1':
+                    # if power=='true':
+                    #     #审批通过进入财务审批
+                    #     reimbursement.approval_type=3
+                    # else:
+                    org = OA_Org.query.filter_by(id=reimbursement.approval).first()
+                    if org:
+                        if org.pId: 
+                            #审批通过进入上级部门审批
+                            highOrg = OA_Org.query.filter_by(id=org.pId).first()
+                            if highOrg.pId:
+                                if highOrg.manager==org.manager:
+                                    reimbursement.approval=highOrg.pId
+                                else:
+                                    reimbursement.approval=org.pId                            
+                                reimbursement.approval_type = 1
                             else:
-                                reimbursement.approval=org.pId                            
-                            reimbursement.approval_type = 1
+                               reimbursement.approval=org.pId 
+                               reimbursement.approval_type = 1
                         else:
-                           reimbursement.approval=org.pId 
-                           reimbursement.approval_type = 1
-                    else:
-                        #审批通过进入财务审批
-                        reimbursement.approval_type=3
-            #项目审批阶段
-            else:
-                # if power=='true':
-                #     #审批通过进入财务审批
-                #     reimbursement.approval_type=3
-                # else:
-                project = OA_Project.query.filter_by(id=reimbursement.approval).first()
-                if project:
-                    if project.p_project_id:
-                        #审批通过进入上级项目审批
-                        reimbursement.approval=project.p_project_id
-                    else:
-                        #审批通过进入上级部门审批(判断是否同一领导)
-                        org = OA_Org.query.filter_by(id=project.p_org_id).first()
-                        if org:
-                            if int(org.manager)==int(project.manager_id):
-                               reimbursement.approval=org.pId
-                            else:
-                                reimbursement.approval=project.p_org_id
-                        reimbursement.approval_type = 1
-            if reimbursement.approval_type is not 4:
-                #邮件通知
-                SendMail(reimbursement)
+                            #审批通过进入财务审批
+                            reimbursement.approval_type=3
+                #项目审批阶段
+                else:
+                    # if power=='true':
+                    #     #审批通过进入财务审批
+                    #     reimbursement.approval_type=3
+                    # else:
+                    project = OA_Project.query.filter_by(id=reimbursement.approval).first()
+                    if project:
+                        if project.p_project_id:
+                            #审批通过进入上级项目审批
+                            reimbursement.approval=project.p_project_id
+                        else:
+                            #审批通过进入上级部门审批(判断是否同一领导)
+                            org = OA_Org.query.filter_by(id=project.p_org_id).first()
+                            if org:
+                                if int(org.manager)==int(project.manager_id):
+                                    reimbursement.approval=org.pId
+                                else:
+                                    reimbursement.approval=project.p_org_id
+                            reimbursement.approval_type = 1
+                if reimbursement.approval_type is not 4:
+                    #邮件通知
+                    SendMail(reimbursement)
         #拒绝
         if result=='2':
             reimbursement.is_refuse = '1'
@@ -335,6 +374,23 @@ def fyzf_total():
     
     sql =" is_refuse=0 and is_paid =0 and approval_type=4 "
 
+    #查询乾康金服下的所有部门
+    org2 = OA_Org.query.filter_by(name="乾康金服").first()
+    tmpsql = "FIND_IN_SET(id,getChildOrgLst('"+str(org2.id)+"'))"
+    orgs_list = OA_Org.query.filter(tmpsql).all()
+    org_lists = "("
+    for i in orgs_list:
+       org_lists+=str(i.id)+","
+    org_lists=org_lists[0:len(org_lists)-1]+")"
+
+    #查询为人事还是乾康金服财务
+    org1 = OA_Org.query.filter_by(manager=current_user.id).first()
+    if org1:
+        if str(org1.is_caiwu)=='1':
+            sql += " and org_id in "+org_lists
+    else:
+        sql += " and org_id not in "+org_lists
+
     if float(org_id) > -1:
         if float(project_id) != -1:
             sql+=" and (org_id="+org_id+" and project_id="+project_id+")"
@@ -344,10 +400,8 @@ def fyzf_total():
         if float(project_id) >-1:
             sql+="and project_id="+project_id
     sql+=" group by create_user"
-    if current_user.id==2:
-        data = db.session.execute("select a.create_user,count(*) as count ,(select real_name from oa_user b where b.id=a.create_user) as real_name,sum(a.amount) as amount from oa_reimbursement a where "+sql).fetchall()
-    else:
-        data=""
+    data = db.session.execute("select a.create_user,count(*) as count ,(select real_name from oa_user b where b.id=a.create_user) as real_name,sum(a.amount) as amount from oa_reimbursement a where "+sql).fetchall()
+
     return render_template("bxsq/fysp/fyzf_total.html",data=data,org_id=org_id,project_id=project_id)
 
 #费用支付查询详情
@@ -363,6 +417,23 @@ def fyzf_list(page,userId):
             project_id = request.form['project_id']
     
     sql =" is_refuse=0 and is_paid =0 and approval_type=4 and create_user="+str(userId)
+
+    #查询乾康金服下的所有部门
+    org2 = OA_Org.query.filter_by(name="乾康金服").first()
+    tmpsql = "FIND_IN_SET(id,getChildOrgLst('"+str(org2.id)+"'))"
+    orgs_list = OA_Org.query.filter(tmpsql).all()
+    org_lists = "("
+    for i in orgs_list:
+       org_lists+=str(i.id)+","
+    org_lists=org_lists[0:len(org_lists)-1]+")"
+
+    #查询为人事还是乾康金服财务
+    org1 = OA_Org.query.filter_by(manager=current_user.id).first()
+    if org1:
+        if str(org1.is_caiwu)=='1':
+            sql += " and org_id in "+org_lists
+    else:
+        sql += " and org_id not in "+org_lists
 
     if float(org_id) > -1:
         if float(project_id) != -1:
@@ -458,7 +529,7 @@ def fyzf_Excel():
     end_date = request.form['end_date'] + " 23:59:59"
     is_paid = request.form['is_paid']
 
-    sql = "SELECT b.name,c.real_name,d.project_name,a.amount,a.`describe`,a.create_date,(case is_paid when '0' then '未支付' \
+    sql = "SELECT a.id,b.name,c.real_name,d.project_name,a.amount,a.`describe`,a.create_date,(case is_paid when '0' then '未支付' \
         when '1' then '已支付' end) as paid,a.paid_date FROM oa_reimbursement a, oa_org b, oa_user c,oa_project d WHERE\
         a.org_id = b.id AND a.create_user = c.id and a.project_id=d.id"
     sql += " and a.create_date between '" + beg_date + "' and '" + end_date + "'"
@@ -466,7 +537,15 @@ def fyzf_Excel():
         sql+=" and a.is_paid="+str(is_paid)
     sql +="order by a.paid_date"
     data=db.session.execute(sql).fetchall()
-
+    # for i in data:
+    #     if i.paid=='未支付':
+    #         data_1 =OA_Reimbursement.query.filter_by(id=i.id).first()
+    #         if data_1.approval_type=='1':
+    #             data_2=OA_Org.query.filter_by(id=data_1.approval).first()
+    #             i.paid=data_2.name+"审批"
+    #         elif data_1.approval_type=='1':
+    #             data_3=OA_Project.query.filter_by(id=data_1.approval).first()
+    #             i.paid=data_3.name+"审批"
 
     exl_hdngs=['费用所属单位','申请人','项目','金额','报销事由','创建时间','审批状态','支付时间']
     types=     'text   text   text      text      text     datetime    text   datetime'.split()
