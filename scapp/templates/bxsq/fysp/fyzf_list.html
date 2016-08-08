@@ -8,25 +8,22 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
-	<link href="/static/css/datepicker.css" rel="stylesheet">
+	<link href="../../../static/css/bootstrap.css" rel="stylesheet">
+	<link href="../../../static/css/main2.css" rel="stylesheet">
+	<link href="../../../static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
-	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<!--<script src="../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
+	<script src="../../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+	<link href="../../../static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
 	<style type="text/css">
-		.table-list .table-label{width:140px;}
 	</style>
 	
 </head>
 
 <body onload="datepicker();setTimeOut();">
 	<form class="content" id="tests" method="post" action="/fysp/fyzf_list/{{data.page}}/{{userId}}">	
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">报销申请</a>/<a href="/fysp/fyzf_search">费用审核</a>
-		</div>	
+		
+		<h1>费用支付</h1>
+		<h2>当前位置：报销管理 / <span>费用支付</span></h2>	
 			<input type="hidden" value="{{org_id}}" name="org_id"/>
 			<input type="hidden" value="{{project_id}}" name="project_id"/>
 		{%- with messages = get_flashed_messages(with_categories=true) %}
@@ -38,53 +35,51 @@
 	    	{%- endfor %}
 		  	{%- endif %}
 		{%- endwith %}
-		<div class="row-fluid">			
-			<i class="icon-bookmark"></i><span class="titletip">待支付列表</span>
-			<div style="margin-bottom:10px;">
-				<input type='button' class='btn btn-success' value='批量支付' 
+		<div class="report common tableB">
+			<h5>
+				待支付列表
+				<input type="button" value="批量支付" class="downLoad" style="width:80px;"
 				{%- if data.items[0] %}
 				onclick="pay({{data.page}},{{data.items[0].create_user}})"
 				{%- endif%}/>
-			</div>
-			<div style="border:1px solid #94c1dc;">				
-				<table class="table-list" cellspacing="10" id="uesr-list">
-					<thead>
-						<tr>
-							<th><input type="button" class="btn btn-info btn-mini" value="反选" style="margin:0;" onclick="ChkAllClick()"/></th>
-							<th>费用所属单位</th>
-							<th>申请人</th>
-							<th>项目</th>
-							<th>项目编号</th>
-							<th>金额</th>
-							<th>报销事由</th>							
-							<th>创建时间</th>
-							<th>审批状态</th>
-							<th>操作</th>
-						</tr>
-					</thead>
-					<tbody class="center">						
-						{%- for obj in data.items %}					
-						<tr>
-							<td><input type="checkbox" onclick="changeColor(this)" name="checkbox" value="{{obj.id}}"/></td>
-							<td>{{obj.oa_reimbursement_ibfk_3.name}}</td>
-							<td>{{obj.oa_reimbursement_ibfk_2.real_name}}</td>
-							<td>{{obj.oa_reimbursement_ibfk_1.project_name}}</td>
-							<td>{{obj.oa_reimbursement_ibfk_1.project_num}}</td>
-							<td>{{obj.amount}}</td>	
-							<td>{{obj.oa_reimbursement_ibfk_5.reason_name}}</td>
-							<td>{{obj.create_date}}</td>
-							
-							{%- if obj.is_retreat == '1' %}
-								<td><span class="label label-warning">退回重新提交</span></td>
-							{%- else %}
-								<td><span class="label label-info">新申请</span></td>
-							{%- endif %}
-							<td><input type='button' class='btn btn-success btn-mini' value='支付' onclick="showList('sp',{{obj.id}},{{data.page}})"/></td>
-						</tr>	
-					{%- endfor %}	
-					</tbody>
-				</table>
-			</div>
+			</h5>				
+			<table class="center" id="uesr-list">
+				<thead>
+					<tr>
+						<th><input type="button" class="btn btn-info btn-mini" value="反选" style="margin:0;" onclick="ChkAllClick()"/></th>
+						<th>费用所属单位</th>
+						<th>申请人</th>
+						<th>项目</th>
+						<th>项目编号</th>
+						<th>金额</th>
+						<th>报销事由</th>							
+						<th>创建时间</th>
+						<th>审批状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="center">						
+					{%- for obj in data.items %}					
+					<tr>
+						<td><input type="checkbox" onclick="changeColor(this)" name="checkbox" value="{{obj.id}}"/></td>
+						<td>{{obj.oa_reimbursement_ibfk_3.name}}</td>
+						<td>{{obj.oa_reimbursement_ibfk_2.real_name}}</td>
+						<td>{{obj.oa_reimbursement_ibfk_1.project_name}}</td>
+						<td>{{obj.oa_reimbursement_ibfk_1.project_num}}</td>
+						<td>{{obj.amount}}</td>	
+						<td>{{obj.oa_reimbursement_ibfk_5.reason_name}}</td>
+						<td>{{obj.create_date}}</td>
+						
+						{%- if obj.is_retreat == '1' %}
+							<td><span class="label label-warning">退回重新提交</span></td>
+						{%- else %}
+							<td><span class="label label-info">新申请</span></td>
+						{%- endif %}
+						<td><input type='button' class='edit info' value='支付' onclick="showList('sp',{{obj.id}},{{data.page}})"/></td>
+					</tr>	
+				{%- endfor %}	
+				</tbody>
+			</table>
 			<div class="page-div">
 					{%- if data.has_prev %}
 						<span style="CURSOR: pointer" onclick="submitForm('tests','/fysp/fyzf_list/{{data.prev_num}}/{{userId}}')">&lt;&lt;</span>
@@ -103,10 +98,10 @@
 		
 	</form>	
 
-	<script src="/static/js/jquery-1.7.2.min.js"></script>
-	<script src="/static/js/bootstrap.min.js"></script>
-	<script src="/static/js/script.js"></script>
-	<script src="/static/js/bootstrap-datepicker.js"></script>
+	<script src="../../../static/js/jquery-1.7.2.min.js"></script>
+	<script src="../../../static/js/bootstrap.min.js"></script>
+	<script src="../../../static/js/script.js"></script>
+	<script src="../../../static/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">
 		var max=0;
 		var jegs=0;

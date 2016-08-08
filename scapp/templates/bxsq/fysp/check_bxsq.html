@@ -8,8 +8,8 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="../../../static/css/bootstrap.css" rel="stylesheet">
+	<link href="../../../static/css/main2.css" rel="stylesheet">
 	<link href="/static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
 	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
@@ -17,21 +17,21 @@
 	<!--<script src="../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
 	<link href="../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
 	<style type="text/css">
-		.table-list .table-label{width:140px;}
 	</style>
 	
 </head>
 
 <body onload="datepicker();setTimeOut();">
 	<form class="content" id="fybx" method="POST" action="/fysp/fysp_check/{{reimbursement.id}}/{{parentPage}}/{{create_user}}" >	
-		<i class="icon-bookmark"></i><span class="titletip">付款搜索</span>
-		<div style="border:1px solid #94c1dc;">		
-		<!--**********************个人类***********************-->
-			<table class="table-list" id="table2">
+			
+		<h1>费用审批</h1>
+		<h2>当前位置：报销管理 / <span>费用审批</span></h2>	
+		<div class="report common">			
+			<h5>报销单</h5>
+			<table id="table2" class="bxd">
 				<tr>
-					<td class="table-label">项目名称<font class="red">*</font></td>
-					<td width="50%">
-						<select name="project_id"  style="width:90%" disabled>
+					<td>项目名称：
+						<select name="project_id" style="width:60%;border:none;background:none;color:#428bca;overflow: hidden;" disabled>
 							{%- for obj in project %}
 								{%- if reimbursement.project_id == obj.id %}
 									<option value="{{obj.id}}" selected>{{obj.project_name}}</option>
@@ -41,28 +41,15 @@
 							{%- endfor %}
 						</select>
 					</td>	
-					<td class="table-label">金额<font class="red">*</font></td>
-					<td>
-						<span id="amount">
-							<input type="text" name="amount" value="{{reimbursement.amount}}" disabled/>
-							<span class="textfieldRequiredMsg">不能为空</span>
-						</span>						
-					</td>										
+					<td>报销金额：<span>￥{{reimbursement.amount}}</span>	</td>
 				</tr>	
 				<tr>						
-					<td class="table-label">开始时间</td>
-					<td>
-						<input type="text" class="datepicker" name="start_date" value="{{reimbursement.start_date}}" data-date-format="yyyy-mm-dd" disabled/>
-					</td>	
-					<td class="table-label">结束时间</td>
-					<td>
-						<input type="text" class="datepicker" name="end_date" value="{{reimbursement.end_date}}" data-date-format="yyyy-mm-dd" disabled/>
-					</td>					
+					<td>开始时间：<span>{{reimbursement.start_date}}</span></td>
+					<td>结束时间：<span>{{reimbursement.end_date}}</span></td>
 				</tr>	
 				<tr>	
-					<td class="table-label">报销事由</td>
-					<td colspan="3">
-						<select name="reason" disabled>
+					<td>报销事由
+						<select name="reason" disabled  style="border:none;background:none;color:#428bca;overflow: hidden;">
 							<option value="1"
 							{%- if reimbursement.reason == 1 %}
 								selected
@@ -199,33 +186,34 @@
 							{%- endif %}
 							>销售部费用</option>
 						</select>
-					</td>				
-				</tr>	
-				<tr>
-					<td class="table-label">描述</td>					
-					<td colspan="3">
-						<textarea name="describe" class="tbInput" disabled>{{reimbursement.describe}}</textarea>
-					</td>
+					</td>	
+					<td>费用描述：<span>{{reimbursement.describe}}</span></td>			
 				</tr>
+			</table>					
+		</div>
+		<div class="report common tableB">
+			<h5>审批</h5>
+			<table id="bxmx">
 				<tr>
-					<td class="table-label">审批决定<font class="red">*</font></td>
+					<td class="pull-right">审批决定<font class="red">*</font></td>
 					<td width="35%">
-						<select name="decision" onchange="setTextarea()" id="decision">
+						<select name="decision" onchange="setTextarea()" id="decision" >
 							<option value="1">通过</option>
 							<option value="2">拒绝</option>
 							<option value="3">退回</option>
 						</select>
 					</td>	
-					<td class="table-label">拒绝或退回原因</td>
+					<td class="pull-right">拒绝或退回原因</td>
 					<td>
 						<textarea name="fail_reason" class="tbInput" disabled id="jjyy"></textarea>
-					</td>										
-				</tr>	
-			</table>					
+					</td>
+				</tr>
+			</table>
 		</div>
-		<span class="point">*为必填字段</span><br/>
-		<input type="button" onclick="getAction()" value="提交" class="btn btn-info" />
-		<input type="reset" value="重置" class="btn btn-info" />
+		<p class="button">
+			<input type="button" onclick="getAction()" value="提 交"/>
+			<input type="reset" value="重 置"/>
+		</p>
 	</form>	
 
 	<script src="/static/js/jquery-1.7.2.min.js"></script>

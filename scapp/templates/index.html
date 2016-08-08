@@ -8,37 +8,33 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="../static/css/bootstrap.css" rel="stylesheet">
-	<link href="../static/css/main.css" rel="stylesheet" type="text/css" />
+	
+	<link href="../static/css/index2.css" rel="stylesheet">
+	<link href="../static/css/main2.css" rel="stylesheet">
 		
 	<style type="text/css">	
 		
-		#date{line-height:25px;font-size:12px;color:gray;margin-top:-30px;}
-		#text{background:rgba(0,0,0,0.5);width:100%;height:100%;position:fixed;top:0;z-index:1000000;display:none;}
-		.bottom {position: absolute;left: 0;top: 40px;bottom: 35px;width: 100%;overflow: hidden;}
-		.left{position: absolute;top:0;bottom: 0px;width: 60px;background: #0088cc;display:inline-block;float:left;}
-		.left ul{margin:0;text-align:center;}
-		.left ul li{width:60px;height:75px;line-height:75px;list-style:none;}
-		.left ul li img{width:33px;heihgt:33px;}
-		.left .active{background:#fff;}
-
-		.middle{position: absolute;	top:0;left:60px;bottom: 0px;width: 220px;background: #f2f2f2;display:inline-block;float:left;}
-		.middle .titleDIV{height:40px;width:100%;}
-		.middle .title{color:#767578;margin:20px 0 -10px 15px;font:16px "Microsoft YaHei";}
-		.myNav{position:absolute;top:0px;bottom:0;width:100%;overflow:auto;}
-		.myNav ul{margin-left:5px;margin-right:5px;}
-		.myNav ul li{height:30px;margin-left:15px;margin-right:15px;font:14px "Microsoft YaHei";}
-		.myNav ul li img{margin-right:10px;margin-top:-2px;}
-		.myNav ul li span{line-height:30px;}
-		.myNav .nav_header{margin-left:0px;}
-		.myNav .nav_header img{margin-top:-5px;cursor:pointer}
-
-		.right{position: absolute;top:0;left:280px;right:0px;bottom:0px;display:inline-block;float:left;}
+		
 	</style>
 </head>
-<body onload="showdate()">
+<body>
+	<!--**********************************************顶部*********************************************************-->
+	<div class="top">
+		<div class="userMenu" onclick="dropDown()">
+			<img src="../static/img/user/01.png"/>
+			<span>&nbsp;{{current_user.real_name}}</span>
+			<div class="slowDown">
+				<img src="../static/img/slowDown.png" class="boxJ"/>
+				<ul>
+					<li><i class="gr"></i><a href="javascript:void(0);">个人资料</a></li>
+					<li onclick="changeiframe('change_password/{{current_user.id}}');"><i class="gm"></i><a href="javascript:void(0);">修改密码</a></li>
+					<li onclick="iframe('logout')"><i class="dc"></i><a>注销</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 <!--***************************************顶部*******************************************************-->
-	<div class="navbar navbar-inverse navbar-fixed-top">
+	<!--<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">				
 				<a class="brand" href="javascript:void(0);" onclick="iframe('welcome')">OA管理系统</a>
@@ -94,324 +90,251 @@
 							{%- endif %}
 							onclick="iframe('Tjbb')"><a href="javascript:void(0);">统计报表</a></li>
 					</ul> -->
-				</div><!--/.nav-collapse -->
-			</div><!--/.container-fluid -->
-		</div><!--/.navbar-inner -->
-	</div><!--/.navbar -->
-<!--***************************************底部*******************************************************-->
-	<div class="bottom">
+				<!--</div><!--/.nav-collapse -->
+			<!--</div><!--/.container-fluid -->
+		<!--</div><!--/.navbar-inner -->
+	<!--</div><!--/.navbar -->
 	<!--**********************左侧导航*********************-->
-		<div class="left">
-			<ul>
-			{%- for obj in privileges %}
-				{%- if obj.privilege_access_value == "bxgl" and obj.privilege_operation != "0" %}
-				<li title="报销管理"
+	<div class="left">
+		<div class="logo" onclick="iframe('welcome')">
+			<a href="#"><img src="../static/img/logo.png" alt=""></a>
+		</div>			
+		<ul class="nav">
+		{%- for obj in privileges %}
+			{%- if obj.privilege_access_value == "bxgl" and obj.privilege_operation != "0" %}
+			<li title="报销管理" class="menu-list
+					{%- if menu == "xxgl"%}
+						active
+					{%- elif menu == "dsp"%}							
+						active
+					{%- endif %}
+					" onclick="showMenu(this)">
+				<a href="javascript:void(0);"><i class="icon bx"></i>报销管理<i class="pull-right"></i></a>						
+				<ul class="second-nav 
+					{%- if menu != "xxgl" and menu != "dsp" %}
+						hidden
+					{%- endif %}
+					" id="xxgl">					
+				{%- for obj in privileges %}
+					{%- if obj.privilege_access_value == "xzfy" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('xzfy/new_xzfy');checkSecond(this,event);" id="xzfy" class="
 						{%- if menu == "xxgl"%}
-							class="active"
-						{%- elif menu == "dsp"%}
-							class="active"
-						{%- endif %}
-						onclick="iframe('xxgl')">
-					<a href="javascript:void(0);"><img alt="报销管理" title="报销管理"
-						{%- if menu == "xxgl"%}
-							src="/static/img/0_hover.png"
-						{%- elif menu == "dsp"%}
-							src="/static/img/0_hover.png"
-						{%- else -%}
-							src="/static/img/0.png"
-						{%- endif %}
-						></a>						
-				</li>
-				{%- endif %}								
-				{%- if obj.privilege_access_value == "xtgl" and obj.privilege_operation != "0" %}
-				<li title="系统管理"
-						{%- if menu == "xtgl"%}
-							class="active"
-						{%- endif %}
-						onclick="iframe('xtgl')">
-					<a href="javascript:void(0);"><img alt="系统管理" title="系统管理"
-						{%- if menu == "xtgl"%}
-							src="/static/img/1_hover.png"
-						{%- else -%}
-							src="/static/img/1.png"
-						{%- endif %}					
-					></a>						
-				</li>
-				{%- endif %}					
-				{%- if obj.privilege_access_value == "Wdgl" and obj.privilege_operation != "0" %}
-				<li title="文档管理"
-					{%- if menu == "Wdgl"%}
-							class="active"
-						{%- endif %}
-						onclick="iframe('Wdgl')">
-					<a href="javascript:void(0);"><img alt="文档管理" title="文档管理" 
-						{%- if menu == "Wdgl"%}
-							src="/static/img/2_hover.png"
-						{%- else -%}
-							src="/static/img/2.png"
-						{%- endif %}
-						></a>
-				</li>
-				{%- endif %}
-				{%- if obj.privilege_access_value == "xmgl" and obj.privilege_operation != "0" %}		
-				<li title="项目管理"
-						{%- if menu == "xmgl"%}
-							class="active"
-						{%- endif %}
-						onclick="iframe('xmgl')">
-					<a href="javascript:void(0);"><img alt="项目管理" title="项目管理" 
-						{%- if menu == "xmgl"%}
-							src="/static/img/3_hover.png"
-						{%- else -%}
-							src="/static/img/3.png"
-						{%- endif %}
-					 width="33" height="33"></a>
-				</li>	
-				{%- endif %}
-				{%- if obj.privilege_access_value == "Tjbb" and obj.privilege_operation != "0" %}
-
-				<li title="统计报表"
-						{%- if menu == "Tjbb"%}
-							class="active"
-						{%- endif %}
-						onclick="iframe('Tjbb')">
-					<a href="javascript:void(0);"><img alt="统计报表" title="统计报表" 
-						{%- if menu == "Tjbb"%}
-							src="/static/img/4_hover.png"
-						{%- else -%}
-							src="/static/img/4.png"
-						{%- endif %}
-					></a>
-				</li>
-				{%- endif %}
-				
+							second-active
+						{%- endif %}									
+						" >
+						<a href="javascript:void(0);">新增费用</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "grcx" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('grcx/grcx_search');checkSecond(this,event);" id="grcx">
+						<a href="javascript:void(0);">个人查询</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "fysp" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('fysp/fysp_search');checkSecond(this,event);" id="fysp" class="
+								{%- if menu == "dsp"%}
+									second-active
+								{%- endif %}									
+								">
+						<a href="javascript:void(0);">费用审批</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "fytj" and obj.privilege_operation != "0" %}
+						<li onclick="changeiframe('fytj/fytj_search');checkSecond(this,event);" id="fytj">
+						<a href="javascript:void(0);">费用统计</a>
+						</li>
+					</li>  
+					{%- endif %}
 				{%- endfor %}
-				<!-- <li title="文档管理" onclick="switchTab(this,4)">
-					<img alt="文档管理" title="统计报表" src="/static/img/4.png" width="33" height="33">
-				</li> -->	
-		
-			</ul>
-			<div style="position:absolute; bottom:0px; padding:10px;">
-				<a href="javascript:void(0);" onclick="showORhide()">
-					<img alt="显示/隐藏" title="显示/隐藏" src="../static/img/nav_hide.png" width="35" height="35" id="show_hide_btn">
-				</a>
-			</div>
-		</div>
-	<!--**********************中间导航列表*********************-->
-		<div class="middle">
-			<div id="tab0">
-				<div class="myNav">
-					<ul class="nav nav-list 
-						{%- if menu != "xxgl" and menu != "dsp" %}
-							hidden
-						{%- endif %}
-						" id="xxgl">
-					
-						<div class="titleDIV">
-							<p class="title">报销管理</p>
-							<hr/>
-						</div>
+					{%- if userId==2 or userId==146%}
+						<li onclick="changeiframe('fysp/fyzf_search');checkSecond(this,event);" id="fyzf">
+							<a href="javascript:void(0);">费用支付</a>
+						</li>
+					{%- endif %}
+				</ul>
+			</li>
+			{%- endif %}								
+			{%- if obj.privilege_access_value == "xtgl" and obj.privilege_operation != "0" %}
+			<li title="系统管理" class="menu-list
+					{%- if menu == "xtgl"%}
+						active
+					{%- endif %}
+					" onclick="showMenu(this)">
+				<a href="javascript:void(0);"><i class="icon xt"></i>系统管理<i class="pull-right"></i></a>						
+				<ul class="second-nav 
+					{%- if menu != "xtgl"%}
+						hidden
+					{%- endif %}
+					" id="xtgl">
+				<!-- 系统管理员 -->
+				{%- for obj in privileges %}
+					{%- if obj.privilege_access_value == "sygl" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('System/reason/1');checkSecond(this,event)" id="sygl" class="second-active">
+						<a href="javascript:void(0);">事由管理</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "zwgl" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('System/job/1');checkSecond(this,event)" id="zwgl">
+						<a href="javascript:void(0);">职位管理</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "khgl" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('System/customer/1');checkSecond(this,event)" id="khgl">
+						<a href="javascript:void(0);">客户管理</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "mkgl" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('System/menu');checkSecond(this,event)" id="mkgl">
+						<a href="javascript:void(0);">模块管理</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "jggl" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('System/jggl');checkSecond(this,event)" id="jggl" >
+						<a href="javascript:void(0);">部门管理</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "xmgl" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('System/project/1');checkSecond(this,event)" id="xmgl">
+						<a href="javascript:void(0);">项目管理</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "xmzgl" and obj.privilege_operation != "0" %}
+					<li onclick="changeiframe('System/group');checkSecond(this,event)" id="xmzgl">
+						<a href="javascript:void(0);">项目组管理</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "yhgl" and obj.privilege_operation != "0" %}			
+					<li onclick="changeiframe('System/user/1');checkSecond(this,event)" id="yhgl" >
+						<a href="javascript:void(0);">用户管理</a>
+					</li>	
+					{%- endif %}
+					{%- if obj.privilege_access_value == "jsqxgl" and obj.privilege_operation != "0" %}	
+					<li onclick="changeiframe('System/jsqxgl/1');checkSecond(this,event)" id="jsqxgl" >
+						<a href="javascript:void(0);">角色权限管理</a>
+					</li>
+					{%- endif %}
+				{%- endfor %}
+				</ul>
+			</li>
+			{%- endif %}					
+			{%- if obj.privilege_access_value == "Wdgl" and obj.privilege_operation != "0" %}
+			<li title="文档管理" class="menu-list
+				{%- if menu == "Wdgl"%}
+						active
+					{%- endif %}
+					" onclick="showMenu(this)">
+				<a href="javascript:void(0);"><a href="#"><i class="icon wd"></i>文档管理<i class="pull-right"></i></a>
+				<ul class="second-nav 
+					{%- if menu != "Wdgl" %}
+						hidden
+					{%- endif %}
+					" id="Wdgl">
+				{%- for obj in privileges %}
+					{%- if obj.privilege_access_value == "wdgl" and obj.privilege_operation != "0" %}				
+					<li onclick="changeiframe('wdgl/wdgl');checkSecond(this,event)" id="wdgl" class="second-active">
+						<a href="javascript:void(0);">文档管理</a>
+					</li>
+					{%- endif %}
+				{%- endfor %}
+				</ul>
+			</li>
+			{%- endif %}
+			{%- if obj.privilege_access_value == "xmgl" and obj.privilege_operation != "0" %}		
+			<li title="项目管理"  class="menu-list
+					{%- if menu == "xmgl"%}
+						active
+					{%- endif %}
+					" onclick="showMenu(this)">
+				<a href="javascript:void(0);"><i class="icon xm"></i>项目管理<i class="pull-right"></i></a>
+				<ul class="second-nav
+					{%- if menu != "xmgl" %}
+						hidden
+					{%- endif %}
+					" id="Xmgl">
+				
 					{%- for obj in privileges %}
-						{%- if obj.privilege_access_value == "xzfy" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('xzfy/new_xzfy')" style="*margin-top:25px;" id="xzfy" class="
-							{%- if menu == "xxgl"%}
-								active
-							{%- endif %}									
-							" >
-							<a href="javascript:void(0);">新增费用</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "grcx" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('grcx/grcx_search')" id="grcx">
-							<a href="javascript:void(0);">个人查询</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "fysp" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('fysp/fysp_search')" id="fysp" class="
-									{%- if menu == "dsp"%}
-										active
-									{%- endif %}									
-									">
-							<a href="javascript:void(0);">费用审批</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "fytj" and obj.privilege_operation != "0" %}
-							<li onclick="leftmenu(this);changeiframe('fytj/fytj_search')" id="fytj">
-							<a href="javascript:void(0);">费用统计</a>
-							</li>
-						</li>  
-						{%- endif %}
+					{%- if obj.privilege_access_value == "grxm" and obj.privilege_operation != "0" %}			
+					<li onclick="changeiframe('xmgl/grxm');checkSecond(this,event)" id="grxm" class="second-active">
+						<a href="javascript:void(0);">个人项目</a>
+					</li>
+					{%- endif %}
+					{%- if obj.privilege_access_value == "glxm" and obj.privilege_operation != "0" %}	
+					<li onclick="changeiframe('xmgl/glxm');checkSecond(this,event)" id="glxm" >
+						<a href="javascript:void(0);">管理项目</a>
+					</li>
+					{%- endif %}
 					{%- endfor %}
-						{%- if userId==2 or userId==146%}
-							<li onclick="leftmenu(this);changeiframe('fysp/fyzf_search')" id="fyzf">
-								<a href="javascript:void(0);">费用支付</a>
-							</li>
-						{%- endif %}
-					</ul>
-					<ul class="nav nav-list 
-						{%- if menu != "Wdgl" %}
-							hidden
-						{%- endif %}
-						" id="Wdgl">
-					<div class="titleDIV">
-						<p class="title">文档管理</p>
-						<hr/>
-					</div>	
-					{%- for obj in privileges %}
-						{%- if obj.privilege_access_value == "wdgl" and obj.privilege_operation != "0" %}				
-						<li onclick="leftmenu(this);changeiframe('wdgl/wdgl')" style="*margin-top:25px;" id="wdgl" class="active">
-							<a href="javascript:void(0);">文档管理</a>
-						</li>
-						{%- endif %}
-					{%- endfor %}
-					</ul>
-					<ul class="nav nav-list 
-						{%- if menu != "xtgl"%}
-							hidden
-						{%- endif %}
-						" id="xtgl">
-					
-						<div class="titleDIV">
-							<p class="title">系统管理</p>
-							<hr/>
-						</div>
-					<!-- 系统管理员 -->
-					{%- for obj in privileges %}
-						{%- if obj.privilege_access_value == "sygl" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('System/reason/1')" style="*margin-top:25px;" id="sygl" class="active">
-							<a href="javascript:void(0);">事由管理</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "zwgl" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('System/job/1')" id="zwgl">
-							<a href="javascript:void(0);">职位管理</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "khgl" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('System/customer/1')" id="khgl">
-							<a href="javascript:void(0);">客户管理</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "mkgl" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('System/menu')" id="mkgl">
-							<a href="javascript:void(0);">模块管理</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "jggl" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('System/jggl')" id="jggl" >
-							<a href="javascript:void(0);">部门管理</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "xmgl" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('System/project/1')" id="xmgl">
-							<a href="javascript:void(0);">项目管理</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "xmzgl" and obj.privilege_operation != "0" %}
-						<li onclick="leftmenu(this);changeiframe('System/group')" id="xmzgl">
-							<a href="javascript:void(0);">项目组管理</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "yhgl" and obj.privilege_operation != "0" %}			
-						<li onclick="leftmenu(this);changeiframe('System/user/1')" id="yhgl" >
-							<a href="javascript:void(0);">用户管理</a>
-						</li>	
-						{%- endif %}
-						{%- if obj.privilege_access_value == "jsqxgl" and obj.privilege_operation != "0" %}	
-						<li onclick="leftmenu(this);changeiframe('System/jsqxgl/1')" id="jsqxgl" >
-							<a href="javascript:void(0);">角色权限管理</a>
-						</li>
-						{%- endif %}
-					{%- endfor %}
-					</ul>
+				</ul>
+			</li>	
+			{%- endif %}
+			{%- if obj.privilege_access_value == "Tjbb" and obj.privilege_operation != "0" %}
 
-					<ul class="nav nav-list
-						{%- if menu != "xmgl" %}
-							hidden
-						{%- endif %}
-						" id="Xmgl">
-					
-						<div class="titleDIV">
-							<p class="title">项目管理</p>
-							<hr/>
-						</div>	
-						{%- for obj in privileges %}
-						{%- if obj.privilege_access_value == "grxm" and obj.privilege_operation != "0" %}			
-						<li onclick="leftmenu(this);changeiframe('xmgl/grxm')" style="*margin-top:25px;" id="grxm" class="active">
-							<a href="javascript:void(0);">个人项目</a>
-						</li>
-						{%- endif %}
-						{%- if obj.privilege_access_value == "glxm" and obj.privilege_operation != "0" %}	
-						<li onclick="leftmenu(this);changeiframe('xmgl/glxm')" id="glxm" >
-							<a href="javascript:void(0);">管理项目</a>
-						</li>
-						{%- endif %}
-						{%- endfor %}
-					</ul>
-					<ul class="nav nav-list 
-						{%- if menu != "Tjbb" %}
-							hidden
-						{%- endif %}
-						" id="Tjbb">
-					
-						<div class="titleDIV">
-							<p class="title">统计报表</p>
-							<hr/>
-						</div>	
-						{%- for obj in privileges %}
-						{%- if obj.privilege_access_value == "ndfytj" and obj.privilege_operation != "0" %}		
-						<li onclick="leftmenu(this);changeiframe('tjbb/ndfytj_search')" style="*margin-top:25px;" id="ndfytj" class="active">
-							<a href="javascript:void(0);">年度费用统计</a>
-						</li>
-						{%- endif%}
-						{%- if obj.privilege_access_value == "ydbmtj" and obj.privilege_operation != "0" %}	
-						<li onclick="leftmenu(this);changeiframe('tjbb/ydbmtj_search')" id="ydbmtj">
-							<a href="javascript:void(0);">部门费用开支(月)</a>
-						</li>
-						{%- endif%}
-						{%- if obj.privilege_access_value == "ydgstj" and obj.privilege_operation != "0" %}	
-						<li onclick="leftmenu(this);changeiframe('tjbb/ydgstj_search')" id="ydgstj">
-							<a href="javascript:void(0);">公司费用开支(月)</a>
-						</li>
-						{%- endif%}
-						{%- if obj.privilege_access_value == "jdbmtj" and obj.privilege_operation != "0" %}	
-						<li onclick="leftmenu(this);changeiframe('tjbb/jdbmtj_search')" id="jdbmtj">
-							<a href="javascript:void(0);">部门费用开支(季)</a>
-						</li>
-						{%- endif%}
-						{%- if obj.privilege_access_value == "jdgstj" and obj.privilege_operation != "0" %}	
-						<li onclick="leftmenu(this);changeiframe('tjbb/jdgstj_search')" id="jdgstj">
-							<a href="javascript:void(0);">公司费用开支(季)</a>
-						</li>
-						{%- endif%}
-						{%- endfor %}
-					</ul>
-				</div><!--/myNav-->
-			</div><!--/tab0-->
-		</div><!--/middle-->
+			<li title="统计报表" class="menu-list
+					{%- if menu == "Tjbb"%}
+						active
+					{%- endif %}
+					" onclick="showMenu(this)">
+				<a href="javascript:void(0);"><i class="icon tj"></i>统计报表<i class="pull-right"></i></a>
+				<ul class="second-nav 
+					{%- if menu != "Tjbb" %}
+						hidden
+					{%- endif %}
+					" id="Tjbb">
+					{%- for obj in privileges %}
+					{%- if obj.privilege_access_value == "ndfytj" and obj.privilege_operation != "0" %}		
+					<li onclick="changeiframe('tjbb/ndfytj_search');checkSecond(this,event)" id="ndfytj" class="second-active">
+						<a href="javascript:void(0);">年度费用统计</a>
+					</li>
+					{%- endif%}
+					{%- if obj.privilege_access_value == "ydbmtj" and obj.privilege_operation != "0" %}	
+					<li onclick="changeiframe('tjbb/ydbmtj_search');checkSecond(this,event)" id="ydbmtj">
+						<a href="javascript:void(0);">部门费用开支(月)</a>
+					</li>
+					{%- endif%}
+					{%- if obj.privilege_access_value == "ydgstj" and obj.privilege_operation != "0" %}	
+					<li onclick="changeiframe('tjbb/ydgstj_search');checkSecond(this,event)" id="ydgstj">
+						<a href="javascript:void(0);">公司费用开支(月)</a>
+					</li>
+					{%- endif%}
+					{%- if obj.privilege_access_value == "jdbmtj" and obj.privilege_operation != "0" %}	
+					<li onclick="changeiframe('tjbb/jdbmtj_search');checkSecond(this,event)" id="jdbmtj">
+						<a href="javascript:void(0);">部门费用开支(季)</a>
+					</li>
+					{%- endif%}
+					{%- if obj.privilege_access_value == "jdgstj" and obj.privilege_operation != "0" %}	
+					<li onclick="changeiframe('tjbb/jdgstj_search');checkSecond(this,event)" id="jdgstj">
+						<a href="javascript:void(0);">公司费用开支(季)</a>
+					</li>
+					{%- endif%}
+					{%- endfor %}
+				</ul>
+			</li>
+			{%- endif %}
+			
+			{%- endfor %}
+	
+		</ul>			
+	</div>	
 	<!--**********************右侧页面*********************-->
-		<div class="right">
-			<iframe frameborder="0" 
-				{%- if menu == "xxgl" %}
-					src="xzfy/new_xzfy"
-				{%- elif menu == "dsp" %}
-					src="fysp/fysp_total"
-				{%- elif menu == "Wdgl" %}
-					src="wdgl/wdgl"
-				{%- elif menu == "xtgl" %}
-					src="System/reason/1"						
-				{%- elif menu == "xmgl" %}
-					src="xmgl/grxm"
-				{%- elif menu == "Tjbb" %}
-					src="tjbb/ndfytj_search"
-				{%- endif %}
-			width="100%" id="content_frame" name="content_frame" marginheight="0" marginwidth="0" height="100%" style="*height:530px;"></iframe>
-		</div><!--/right-->
+	<div class="bottom">
+		<iframe frameborder="0" 
+			{%- if menu == "xxgl" %}
+				src="xzfy/new_xzfy"
+			{%- elif menu == "dsp" %}
+				src="fysp/fysp_total"
+			{%- elif menu == "Wdgl" %}
+				src="wdgl/wdgl"
+			{%- elif menu == "xtgl" %}
+				src="System/reason/1"						
+			{%- elif menu == "xmgl" %}
+				src="xmgl/grxm"
+			{%- elif menu == "Tjbb" %}
+				src="tjbb/ndfytj_search"
+			{%- endif %}
+		width="100%" height="100%" id="content_frame" name="content_frame" marginheight="0" marginwidth="0" height="100%" style="*height:530px;"></iframe>
+		
 	</div><!--/bottom-->
-	<div class="footer">
-		<p class="pull-center">@ 2013 CardPay (Shanghai) Info Tech Co.,Ltd</p>
-		<span id="date" class="pull-right"></span>
-	</div>
+	
 	<div id="text">	
 		
 	</div>
@@ -419,6 +342,7 @@
 	<script src="../static/js/bootstrap.min.js"></script>
 	<script src="../static/js/script.js"></script>
 	<script src="../static/js/index.js"></script>
+	<script src="../static/js/index2.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){			
 			$(".close").mouseover(function(){//关闭按钮鼠标经过

@@ -9,7 +9,7 @@
 
 	<!-- The styles -->
 	<link href="../../static/css/bootstrap.css" rel="stylesheet">
-	<link href="../../static/css/main.css" rel="stylesheet">
+	<link href="../../static/css/main2.css" rel="stylesheet">
 	<link href="../../static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
 	<script src="../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
@@ -21,10 +21,9 @@
 </head>
 
 <body onload="datepicker();">	
-	<form class="content" method="POST" action="/fysp/fysp_total">
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">报销管理</a>/<a href="#">费用审批</a>
-		</div>		
+	<form class="content" method="POST" action="/fysp/fysp_total">		
+		<h1>费用审批</h1>
+		<h2>当前位置：报销管理 / <span>费用审批</span></h2>	
 		{%- with messages = get_flashed_messages(with_categories=true) %}
 		  	{%- if messages %}
 	    	{%- for category, message in messages %}
@@ -34,44 +33,43 @@
 	    	{%- endfor %}
 		  	{%- endif %}
 		{%- endwith %}
-		<div class="row-fluid">
-			<i class="icon-bookmark"></i><span class="titletip">费用搜索</span>
-			<div>
-				<div style="border:1px solid #94c1dc;">
-					<table class="table-list">						
-						<tr>
-							<td class="table-label">负责部门</td>
-							<td colspan="1">
-								<select name="org_id" style="width:260px;">
-									{%- if orgs %}
-									<option value="-1">全部</option>
-									{%- else %}
-									<option value="-1">无</option>
-									{%- endif %}
-									{%- for obj in orgs %}
-										<option value="{{obj.id}}">{{obj.name}}</option>
-									{%- endfor %}
-								</select>
-							</td>
-							<td class="table-label">负责项目</td>
-							<td colspan="1">
-								<select name="project_id" style="width:260px;">
-									{%- if projects %}
-									<option value="-1">全部</option>
-									{%- else %}
-									<option value="-1">无</option>
-									{%- endif %}
-									{%- for obj in projects %}
-										<option value="{{obj.id}}">{{obj.project_name}}</option>
-									{%- endfor %}
-								</select>
-							</td>	
-						</tr>
-					</table>
-				</div>
-				<input type="submit" class="btn btn-info" value="搜索"/>										
-			</div><!--/搜索-->
-		</div><!--/row-fluid -->
+		
+		<div class="report common">
+			<h5>查询条件</h5>
+			<table >						
+				<tr>
+					<td class="pull-right">负责部门</td>
+					<td colspan="1">
+						<select name="org_id" style="width:260px;">
+							{%- if orgs %}
+							<option value="-1">全部</option>
+							{%- else %}
+							<option value="-1">无</option>
+							{%- endif %}
+							{%- for obj in orgs %}
+								<option value="{{obj.id}}">{{obj.name}}</option>
+							{%- endfor %}
+						</select>
+					</td>
+					<td class="pull-right">负责项目</td>
+					<td colspan="1">
+						<select name="project_id" style="width:260px;">
+							{%- if projects %}
+							<option value="-1">全部</option>
+							{%- else %}
+							<option value="-1">无</option>
+							{%- endif %}
+							{%- for obj in projects %}
+								<option value="{{obj.id}}">{{obj.project_name}}</option>
+							{%- endfor %}
+						</select>
+					</td>	
+				</tr>
+			</table>
+			<p class="button">
+				<input type="submit" value="搜 索"/>
+			</p>									
+		</div><!--/搜索-->
 	</form><!--/content -->
 </body>
 </html>
