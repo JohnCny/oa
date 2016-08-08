@@ -9,7 +9,7 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 	<link href="/static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
 	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
@@ -24,9 +24,8 @@
 
 <body onload="datepicker();setTimeOut();">
 	<form id="content" class="content" method="POST">	
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">报销申请</a>/<a href="#">费用统计</a>
-		</div>	
+		<h1>费用统计</h1>
+		<h2>当前位置：报销管理 / <span>费用统计</span></h2>
 			<input type="hidden" name="beg_date" value="{{beg_date}}">
 			<input type="hidden" name="end_date" value="{{end_date}}">
 			<input type="hidden" name="is_paid" value="{{is_paid}}">
@@ -41,49 +40,47 @@
 	    	{%- endfor %}
 		  	{%- endif %}
 		{%- endwith %}
-		<div class="row-fluid">			
-			<i class="icon-bookmark"></i><span class="titletip">费用统计</span>
-			<div style="border:1px solid #94c1dc;">				
-				<table class="table-list" cellspacing="10" id="uesr-list">
-					<thead>
-						<tr>
-							<th>费用所属单位</th>
-							<th>申请人</th>
-							<th>项目</th>
-							<th>金额</th>	
-							<th>报销事由</th>							
-							<th>创建时间</th>
-							<th>审批状态</th>
-						</tr>
-					</thead>
-					<tbody class="center">	
-					{%- for obj in data.items %}					
-						<tr>
-							<td>{{obj.oa_reimbursement_ibfk_3.name}}</td>
-							<td>{{obj.oa_reimbursement_ibfk_2.real_name}}</td>
-							<td>{{obj.oa_reimbursement_ibfk_1.project_name}}</td>
-							<td>{{obj.amount}}</td>	
-							<td>{{obj.oa_reimbursement_ibfk_5.reason_name}}</td>
-							<td>{{obj.create_date}}</td>
-							
-							{%- if obj.is_paid == '1' %}
-								<td><span class="label label-success">已付款</span></td>
+		<div class="report common tableB">			
+			<h5>费用统计</h5>				
+			<table class="center" id="uesr-list">
+				<thead>
+					<tr>
+						<th>费用所属单位</th>
+						<th>申请人</th>
+						<th>项目</th>
+						<th>金额</th>	
+						<th>报销事由</th>							
+						<th>创建时间</th>
+						<th>审批状态</th>
+					</tr>
+				</thead>
+				<tbody class="center">	
+				{%- for obj in data.items %}					
+					<tr>
+						<td>{{obj.oa_reimbursement_ibfk_3.name}}</td>
+						<td>{{obj.oa_reimbursement_ibfk_2.real_name}}</td>
+						<td>{{obj.oa_reimbursement_ibfk_1.project_name}}</td>
+						<td>{{obj.amount}}</td>	
+						<td>{{obj.oa_reimbursement_ibfk_5.reason_name}}</td>
+						<td>{{obj.create_date}}</td>
+						
+						{%- if obj.is_paid == '1' %}
+							<td><span class="label label-success">已付款</span></td>
+						{%- else %}
+							{%- if obj.is_refuse == '1' %}
+								<td><span class="label label-important">被拒绝</span></td>
 							{%- else %}
-								{%- if obj.is_refuse == '1' %}
-									<td><span class="label label-important">被拒绝</span></td>
+								{%- if obj.is_retreat == '1' %}
+									<td><span class="label label-warning">被退回</span></td>
 								{%- else %}
-									{%- if obj.is_retreat == '1' %}
-										<td><span class="label label-warning">被退回</span></td>
-									{%- else %}
-										<td>审批中</td>
-									{%- endif %}
+									<td>审批中</td>
 								{%- endif %}
-							{%- endif %}	
-						</tr>	
-					{%- endfor %}	
-					</tbody>					
-				</table>
-			</div>
+							{%- endif %}
+						{%- endif %}	
+					</tr>	
+				{%- endfor %}	
+				</tbody>					
+			</table>
 			<div class="page-div">
 					{%- if data.has_prev %}
 						<span style="CURSOR: pointer" onclick="submitForm('content','/fytj/fytj_list/{{data.prev_num}}')">&lt;&lt;</span>

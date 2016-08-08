@@ -1,0 +1,143 @@
+*{margin:0;padding:0;font-family:微软雅黑;}
+img{border:none;}
+body{background:#eff0f4;}
+h1{line-height:32px;}
+h2{line-height:20px;margin-bottom:20px;}
+.content{margin-left:2%;margin-top:20px;}
+h5{margin:0;}
+font.red{color: #c7254e;font-size:18px;font-weight:bold;}
+label{display:inline-block;}
+/*弹出框*/
+	.dialog{width:100%;height:100%;position:fixed;top:0;z-index:1000000;display:none;}
+	.dialog .background{position:absolute;width:100%;height:100%;background:rgba(0, 0, 0, 0.5)!important;filter:Alpha(opacity=50); background:#000;}
+	.dialog .dialog-box{position:relative;width:30em;background:#ffffff;border:1px solid #e5e5e5;border-radius:10px;margin:0 auto;margin-top:7%;}
+
+	.dialog-box h5{border-bottom: 1px dotted #c0c0c0;border-bottom: 1px dotted rgba(0, 0, 0, 0.2);padding: 15px;text-transform: uppercase;color: #535351;font-size: 16px;font-weight: bold;}
+	.dialog-box .close{display:inline;border:0;margin:0;width:37px;cursor:pointer;border-radius:10px;float:right;margin-top:-45px;}
+	.dialog-box h5 img{vertical-align:middle;}
+	.dialog-box .report{width:100%;float:none;height:300px;overflow:auto;}	
+	.dialog-box .button{margin-bottom:20px;}
+	/*滚动条样式*/
+	.dialog-box .report::-webkit-scrollbar{width:3px;height:10px;}/*滚动条尺寸*/
+	.dialog-box .report::-webkit-scrollbar-button{display:none;}
+	.dialog-box .report::-webkit-scrollbar-track{background:#424f63;}/*滚动条背景*/
+	.dialog-box .report::-webkit-scrollbar-thumb{background:#65cea7;}/*滚动条*/
+/*标题*/
+/*机构树*/
+	.treeBox{height:300px;overflow:auto;margin-left:5em;}	
+	/*滚动条样式*/
+	.treeBox:hover{overflow:auto;overflow-x:hidden;}
+	.treeBox::-webkit-scrollbar{width:3px;height:10px;}/*滚动条尺寸*/
+	.treeBox::-webkit-scrollbar-button{display:none;}
+	.treeBox::-webkit-scrollbar-track{background:#424f63;}/*滚动条背景*/
+	.treeBox::-webkit-scrollbar-thumb{background:#65cea7;}/*滚动条*/
+/*标题*/
+.content h1{color: #49586e;font-size: 25px;font-weight: normal;margin:5px 0;}
+.content h2{color: #999999;font-size: 14px;font-weight: normal;margin-top:0;}
+.content h2 span{color: #65CEA7;}
+/*布局*/
+.row{width:100%}
+
+/*我的审批*/
+.colorBox{margin-bottom: 30px;width:20%;margin-right:2%;display:inline-block;float:left;border-radius:5px;height:130px;}
+.colorBox img{margin-left:20px;margin-top:5px;margin-top:40px;}
+.colorBox div{display:inline-block;width:50%;margin-left:2%;margin-top:40px;}
+.colorBox div h3{font-size: 24px;font-weight: bold;color:#fff;}
+.colorBox div h4{font-size: 16px;font-weight: normal;color:#fff;}
+.wdsp{background: #6a8abe;box-shadow: 0 5px 0 #5f7cab;}
+.wdbx{background: #fc8675;box-shadow: 0 5px 0 #e27869;}
+
+/*个人报销统计*/
+.grbxtj{background: #49586e;box-shadow: 0 5px 0 #424f63;border-radius:5px;margin-bottom:30px;width:54%;display:inline-block;float:left;height:130px;}
+.grbxtj .bb{display:inline-block;float:left;width:35%;margin-top:40px;}
+.grbxtj .bb h1{font-size: 16px;font-weight: normal;color:#fff;}
+.grbxtj .bb h2{font-size: 24px;font-weight: bold;color: #fc8675;}
+#grbxtj{display:inline-block;float:left;width:50%;margin:15px 30px;}
+/*部门统计*/
+.report{float:left;background:#fff;border-radius:5px;width:98%;margin-bottom:20px;}
+.report h5{border-bottom: 1px dotted #c0c0c0;border-bottom: 1px dotted rgba(0, 0, 0, 0.2);padding: 15px;text-transform: uppercase;color: #535351;font-size: 16px;font-weight: bold;}
+.report table{width:95%;margin-left:2.5%;margin-top:20px;border-collapse: collapse;margin-bottom:20px;}
+.report table tr:nth-child(2n){background:#f7f7f7;}
+.report table tr th{border-bottom: 2px solid #ddd;color: #7a7676;font-size:14px;line-height:35px;}
+.report table tr td{border-bottom: 1px solid #ddd;color: #7a7676;text-align:center;font-size:14px;line-height:35px;}
+
+/*新增报销*/
+.common table{background: #f7f7f7;padding:0 20px;}
+.common table tr th{border-bottom:0;text-align:left;line-height:45px;}
+.common table tr td{border-bottom:0;text-align:left;line-height:45px;}
+.common .treeBox{margin-left:1em;}
+/*新增明细*/
+.tableB .pull-right{line-height:90px;}
+.tableB h5 img{margin-left:5px;vertical-align:middle;}
+.total{width:width:95%;margin-left:2.5%;text-transform: uppercase;color: #535351;font-size: 16px;font-weight: bold;}
+.total span{font-size: 24px;font-weight: bold;color: #428bca;}
+/*报销单*/
+.common .bxd tr td{padding-left:20px;}
+.common .bxd span{color:#428bca;}
+/*新建项目*/
+.newProject{background:#fff;width:23%;margin-right:2%;margin-bottom:20px;height:150px;border-radius:5px;cursor:pointer;display:inline-block;float:left;}
+.newProject .addProject{background:url(../img/newProject.png) no-repeat;display:block;width:40px;height:40px;margin:0 auto;margin-top:40px;}
+.newProject p{text-align:center;margin-top:10px;margin-bottom:30px;font-size:18px;color:#aaaaaa;}
+.newProject:hover{box-shadow:0 0 10px #ddd;margin-top:-5px;margin-bottom:25px;}
+.newProject:hover .addProject{background:url(../img/newProject_a.png) no-repeat;}
+.newProject:hover p{color:#03a9f4;}
+
+.project{background:#fff url(../img/project.png) no-repeat;background-size: cover;}
+.project img{width:16px;margin:20px;}
+.project .projectName{display:block;text-align:center;margin-top:-45px;line-height: 30px;color:#fff;font-size: 18px;text-shadow: 0 1px 1px rgba(0,0,0,.35);}
+.project .right{display:none;float:right;margin-top:-25px;width:16px;height:16px;}
+.project .edit{background:url(../img/edit.png) no-repeat;margin-right:40px;}
+.project .delete{background:url(../img/delete.png) no-repeat;margin-right:20px;}
+.project:hover .right{display:inline-block;}
+.project .edit:hover{background:url(../img/editH.png) no-repeat;}
+.project .delete:hover{background:url(../img/deleteH.png) no-repeat;}
+
+.common .row{margin-top:30px;margin-left:2.5%;width:97%;}
+/*列表*/
+.common .center tr th,.common .center tr td{text-align:center;border:1px solid #ddd;line-height:40px;}
+.common .center tr td{background:#fff;}
+.common .center .edit{margin-top:-4px;}
+/*文档列表*/
+	.wdlb{overflow:auto;}
+	/*滚动条样式*/
+	.wdlb:hover{overflow:auto;overflow-x:hidden;}
+	.wdlb::-webkit-scrollbar{width:3px;height:10px;}/*滚动条尺寸*/
+	.wdlb::-webkit-scrollbar-button{display:none;}
+	.wdlb::-webkit-scrollbar-track{background:#424f63;}/*滚动条背景*/
+	.wdlb::-webkit-scrollbar-thumb{background:#65cea7;}/*滚动条*/
+/*form*/
+.common .pull-right{padding-right:10px;}
+.common select,.common input,.common textarea{outline:none;width:260px;margin-top:10px;resize: none;font-family: 微软雅黑;}
+.common select:focus,.common input:focus,.common textarea:focus{border-color:#65cea7;box-shadow:0px 0px 5px #65cea7;box-shadow:none;}
+.common input[type=checkbox],.common input[type=radio]{width:auto;margin-top:-4px;}
+.common input[type=file]{margin-top:-5px;}
+input[type=text]{margin-top:10px;width:246px;margin-right:0;}
+input[type=text].short,select.short{width:100px}
+
+input[type=button].edit{font-family: 微软雅黑;width:60px;border-radius: 3px;line-height:25px;color: #fff;background-color: #f0ad4e;border:1px solid #eea236;}
+input[type=button].edit:hover{background-color: #ed9c28;}
+
+input[type=button].info{background-color: #84b4dc;border:1px solid #73a1c8;}
+input[type=button].info:hover{background-color: #6d9dc6;}
+
+input[type=button].del{background-color: #d9534f;border-color: #d43f3a;}
+input[type=button].del:hover{background-color: #d2322d;}
+
+input[type=button].downLoad{width:60px;line-height:25px;font-family: 微软雅黑;margin:0 5px;border-radius: 5px;color: #fff;background-color: #5cb85c;border:1px solid #4cae4c;}
+input[type=button].downLoad:hover{background-color: #47a447;}
+/*按钮组*/
+.button{text-align:center;width:98%;}
+.button input{width:90px;line-height:30px;font-family: 微软雅黑;margin:0 5px;border-radius: 5px;color: #fff;background-color: #5cb85c;border:1px solid #4cae4c;}
+.button input:hover{background-color: #47a447;}
+.report p.button{width:95%;margin-left:2.5%;text-align:left;}
+.report p.button input{margin:0;}
+/*搜索*/
+.search{width:95%;margin-left:2.5%;background:#d9edf7;margin-top:20px;margin-bottom:-10px;color:#767676}
+.search span{display:inline-block;padding:0 20px;}
+
+.search select:focus,.search input:focus,.search textarea:focus{border-color:#5bc0de;box-shadow:0px 0px 5px #5bc0de;box-shadow:none;}
+.search input[type=button]{float:right;width:60px;line-height:25px;font-family: 微软雅黑;margin:11.5px 20px 0 0;border-radius: 5px;color: #fff;background-color: #5bc0de;border:1px solid #46b8da;}
+.search input[type=button]:hover{background-color: #39b3d7;}
+/*列表页码*/
+.page-div{text-align:center;margin-bottom:20px;margin-top:-10px;color:#767676}
+.page-div img{margin-top:-2.5px;}

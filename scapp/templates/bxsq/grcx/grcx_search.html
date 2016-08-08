@@ -9,16 +9,15 @@
 
 	<!-- The styles -->
 	<link href="../../static/css/bootstrap.css" rel="stylesheet">
-	<link href="../../static/css/main.css" rel="stylesheet">
+	<link href="../../static/css/main2.css" rel="stylesheet">
 	<link href="../../static/css/datepicker.css" rel="stylesheet">
 		
 </head>
 
 <body onload="datepicker();">	
-	<form class="content" method="POST" action="/grcx/grcx_list/1/pc">
-		<div class="well place">
-			<i class="icon-home"></i><a href="#">报销管理</a>/<a href="#">个人查询</a>
-		</div>	
+	<form class="content" method="POST" action="/grcx/grcx_list/1/pc">		
+		<h1>个人查询</h1>
+		<h2>当前位置：报销管理 / <span>个人查询</span></h2>
 		{%- with messages = get_flashed_messages(with_categories=true) %}
 		  	{%- if messages %}
 	    	{%- for category, message in messages %}
@@ -28,32 +27,30 @@
 	    	{%- endfor %}
 		  	{%- endif %}
 		{%- endwith %}
-		<div class="row-fluid">
-			<i class="icon-bookmark"></i><span class="titletip">付款搜索</span>
-			<div>
-				<div style="border:1px solid #94c1dc;">
-					<table class="table-list">
-						<tr>
-							<td class="table-label">费用开始时间</td>
-							<td><input type="text" class="datepicker" name="beg_date" data-date-format="yyyy-mm-dd" readonly/></td>
-							<td class="table-label">费用结束时间</td>
-							<td><input type="text" class="datepicker" name="end_date" data-date-format="yyyy-mm-dd" readonly/></td>
-						</tr>
-						<tr>
-							<td class="table-label">是否已付款</td>
-							<td>
-								<select name="is_paid">
-									<option value="-1">全部</option>
-									<option value="1">是</option>
-									<option value="0">否</option>
-								</select>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<input type="submit" class="btn btn-info" value="搜索"/>										
-			</div><!--/搜索-->
-		</div><!--/row-fluid -->
+		<div class="report common">
+			<h5>查询条件</h5>
+			<table>
+				<tr>
+					<td class="pull-right">费用开始时间</td>
+					<td><input type="text" class="datepicker" name="beg_date" data-date-format="yyyy-mm-dd" readonly/></td>
+					<td class="pull-right">费用结束时间</td>
+					<td><input type="text" class="datepicker" name="end_date" data-date-format="yyyy-mm-dd" readonly/></td>
+				</tr>
+				<tr>
+					<td class="pull-right">是否已付款</td>
+					<td>
+						<select name="is_paid">
+							<option value="-1">全部</option>
+							<option value="1">是</option>
+							<option value="0">否</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<p class="button">
+				<input type="submit" value="搜 索"/>
+			</p>									
+		</div>
 	</form><!--/content -->
 	
 	<script src="../../static/js/jquery-1.7.2.min.js"></script>

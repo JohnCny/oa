@@ -8,88 +8,77 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">	
-	
-	<style type="text/css">
-		html{overflow-y:scroll;}  
-		.span12 a{color:#808080}
-		.nav-list span{color:#0088cc;}
-		#date{line-height:25px;font-size:12px;color:gray;margin-top:-30px;}
-		.divNav{border:1px solid #dedede;border-radius:5px;box-shadow:2px 2px 5px #dedede;text-align:center;width:18%;display:inline-block;float:left;margin-right:1.5%;padding-top:20px;padding-bottom:20px;margin-bottom:15px;font:16px "Microsoft YaHei";}
+	<link href="../static/css/index2.css" rel="stylesheet">
+	<link href="../static/css/main2.css" rel="stylesheet">
+	<style type="text/css">  
+		.divNav{border:1px solid #dedede;background:#fff;border-radius:5px;box-shadow:2px 2px 5px #dedede;text-align:center;width:18.2%;display:inline-block;float:left;margin-right:1.5%;padding-top:20px;padding-bottom:20px;margin-bottom:15px;font:16px "Microsoft YaHei";color:#000;}
 		.divNav img{height:60px;}
+		.bottom{overflow:auto;}
+		.bottom::-webkit-scrollbar{width:5px;height:10px;}/*滚动条尺寸*/
+		.bottom::-webkit-scrollbar-button{display:none;}
+		.bottom::-webkit-scrollbar-track{background:#424f63;}/*滚动条背景*/
+		.bottom::-webkit-scrollbar-thumb{background:#65cea7;}/*滚动条*/
 	</style>
 </head>
 
-<body onload="showdate();">	
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container-fluid">				
-				<a class="brand" href="javascript:void(0);" onclick="iframe('welcome')">OA管理系统</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav pull-right">
-						<li class="dropdown">
-							<a href="javascript:void(0);" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-user icon-white"></i>&nbsp;{{current_user.real_name}}<b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-								<li><a href="javascript:void(0);" onclick="$('#content').hide();$('#content_frame').show();">修改密码</a></li>
-								<li class="divider"></li>
-								<li><a href="logout">注销</a></li>
-							</ul>
-						</li>
-					</ul>
-					<!-- <ul class="nav" id="topmenu">
-						{%- for obj in privileges %}
-							{%- if obj.privilege_access_value == "bxgl" and obj.privilege_operation != "0" %}
-								<li><a href="xxgl">报销管理</a></li>
-							{%- endif %}
-							{%- if obj.privilege_access_value == "xtgl" and obj.privilege_operation != "0" %}
-							<li><a href="xtgl">系统管理</a></li>
-							{%- endif %}
-						{%- endfor %}
-						<li><a href="Wdgl">文档管理</a></li>
-						<li><a href="Xmgl">项目管理</a></li>
-						<li><a href="Tjbb">统计报表</a></li>
-					</ul> -->
-				</div><!--/.nav-collapse -->
-			</div><!--/.container-fluid -->
-		</div><!--/.navbar-inner -->		
-	</div><!--/.navbar -->
-	<!-- <div style="height:290px;overflow:hidden;">
-		<img src="/static/img/welcome2.png" style="margin-top:-10px;"/>
-	</div> -->
+<body>	
+	<!--**********************************************顶部*********************************************************-->
+	<div class="top">
+		<div class="userMenu" onclick="dropDown()">
+			<img src="../static/img/user/01.png"/>
+			<span>&nbsp;{{current_user.real_name}}</span>
+			<div class="slowDown">
+				<img src="../static/img/slowDown.png" class="boxJ"/>
+				<ul>
+					<li><i class="gr"></i><a href="javascript:void(0);">个人资料</a></li>
+					<li onclick="$('#content').hide();$('#content_frame').show();"><i class="gm"></i><a href="javascript:void(0);">修改密码</a></li>
+					<li onclick="iframe('logout')"><i class="dc"></i><a>注销</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!--**********************************************左侧*********************************************************-->
+	<div class="left">
+		<div class="logo">
+            <a href="#"><img src="../static/img/logo.png" alt=""></a>
+        </div>
+		<ul class="nav">
+			<li class="active">
+				<a><img src="../static/img/user/user.png" style="margin-right:5px;margin-top:-2px;"/>用户信息</a>
+				<img src="../static/img/user/01.png" style="width:100%;border-radius:10px;"/>
+				<ul class="second-nav">
+					<li>
+						<a>用户名：{{current_user.login_name}}</a>
+					</li>
+					<li>
+						<a>真实姓名：{{current_user.real_name}}</a>
+					</li> 					
+					<li>
+						{%- if current_user.sex == '1' %}
+							<a>性别：男</a>
+						{%- else %}
+							<a>性别：女</a>
+						{%- endif %}  
+					</li>  
+				</ul>
+			</li>
+		</ul>
+	</div>
 	
-	<div class="container-fluid" style="margin:60px auto 50px;" >
+	<!--<div class="container-fluid" style="margin:60px auto 50px;" >
 		<div class="row-fluid" style="*margin-top:60px;">
 			<div class="span3">
 				
 				<div class="well sidebar-nav" id="leftmenu">				
-					<ul class="nav nav-list">
-						<li class="nav-header">用户信息</li>
-						<li>
-							<span>用户名：{{current_user.login_name}}</span>
-						</li>
-						<li>
-							<span>真实姓名：{{current_user.real_name}}</span>
-						</li> 
-						
-						<li>
-							{%- if current_user.sex == '1' %}
-								<span>性别：男</span>
-							{%- else %}
-								<span>性别：女</span>
-							{%- endif %}  
-						</li>     
-					</ul>
+					
 				</div><!--/.well -->						
-			</div><!--/span-->
+			<!--</div><!--/span-->
 <!--**************************************************content***********************************************-->
-			<div class="span9 pull-right">				
-				<div id="content">
-					<div class="well place">			
-						<i class="icon-home"></i><a href="#">首页</a>
-					</div>
+			<div class="bottom">				
+				<div id="content" class="content">
+					<h1>首页</h1>
+					<h2>当前位置：<span>首页</span></h2>
 					{%- with messages = get_flashed_messages(with_categories=true) %}
 					  	{%- if messages %}
 				    	{%- for category, message in messages %}
@@ -142,71 +131,61 @@
 								</div>
 							</a>
 							{%- endif %}
-						{%- endfor %}
-							
-							
-						</div>
-						<i class="icon-bookmark"></i><span class="titletip">待办事项</span>
-						<div class="divBorder">
-							<table class="table-list">
-								<thead>
-									<tr>
-										<th>待办事项项目</th>
-										<th>项目数</th>
-									</tr>
-								</thead>
-								<tbody class="center">
-									<tr>
-										<td>您待审批的报销</td>
-										<td>{{count_1}}</td>
-									</tr>
-									{%- for obj in privileges %}
-										{%- if obj.privilege_access_value == "fysp" and obj.privilege_operation != "0" %}
-										<tr>
-											<td>等待您审批的报销</td>
-												{%- if count_2==0 %}
-													<td>{{count_2}}</td>
-												{%- else%}
-													<td><a href="dsp">{{count_2}}</a></td>
-												{%- endif %}
-										</tr>		
+						{%- endfor %}	
+						</div>						
+					</div><!--/row-fluid -->
+				<!--****************************待办事项********************************-->
+					<div class="report">
+						<h5>待办事项</h5>
+						<table>
+							<tr>
+								<th>待办事项项目</th>
+								<th>项目数</th>
+							</tr>
+							<tr>
+								<td>您待审批的报销</td>
+								<td>{{count_1}}</td>
+							</tr>
+							{%- for obj in privileges %}
+								{%- if obj.privilege_access_value == "fysp" and obj.privilege_operation != "0" %}
+								<tr>
+									<td>等待您审批的报销</td>
+										{%- if count_2==0 %}
+											<td>{{count_2}}</td>
+										{%- else%}
+											<td><a href="dsp">{{count_2}}</a></td>
 										{%- endif %}
-									{%- endfor %}					
-								</tbody>
-							</table>
-						</div>
-					</div><!--/row-fluid -->
-					{%- for obj in privileges %}
-						{%- if obj.privilege_access_value == "fytj" and obj.privilege_operation != "0" %}
-					<div class="row-fluid" >
-						<i class="icon-bookmark"></i><span class="titletip">统计</span>
-						<div class="divBorder" style="overflow:auto; height:100px;">
-							<table class="table-list">
-								<thead>
-									<tr>
-										<th>负责部门或项目</th>
-										<th>当前申请总额</th>
-										<th>当前付款总额</th>
-										<th>本月付款金额</th>
-										<th>本季度付款金额</th>
-									</tr>
-								</thead>
-								<tbody class="center">
-									{%- for obj in result %}
-									<tr>
-										<td>{{obj.name}}</td>
-										<td>{{obj.total_apply}}</td>
-										<td>{{obj.total_paid}}</td>
-										<td>{{obj.monthly}}</td>
-										<td>{{obj.season}}</td>
-									</tr>	
-									{%- endfor %}						
-								</tbody>
-							</table>
-						</div>
-					</div><!--/row-fluid -->
-						{%- endif %}
-					{%- endfor %}	
+								</tr>		
+								{%- endif %}
+							{%- endfor %}	
+						</table>
+					</div>
+				<!--****************************统计********************************-->
+				{%- for obj in privileges %}
+					{%- if obj.privilege_access_value == "fytj" and obj.privilege_operation != "0" %}
+					<div class="report">
+						<h5>统计</h5>						
+						<table>
+							<tr>
+								<th>负责部门或项目</th>
+								<th>当前申请总额</th>
+								<th>当前付款总额</th>
+								<th>本月付款金额</th>
+								<th>本季度付款金额</th>
+							</tr>
+							{%- for obj in result %}
+							<tr>
+								<td>{{obj.name}}</td>
+								<td>{{obj.total_apply}}</td>
+								<td>{{obj.total_paid}}</td>
+								<td>{{obj.monthly}}</td>
+								<td>{{obj.season}}</td>
+							</tr>	
+							{%- endfor %}	
+						</table>
+					</div>
+					{%- endif %}
+				{%- endfor %}	
 				</div><!--/content -->
 				<iframe frameborder="0" width="100%" height="100%" id="content_frame" src="change_password/{{current_user.id}}" style="display:none;"></iframe>
 			</div><!--/span-->
