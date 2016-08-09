@@ -84,9 +84,10 @@ label{display:inline-block;}
 
 .project{background:#fff url(../img/project.png) no-repeat;background-size: cover;}
 .project img{width:16px;margin:20px;}
-.project .projectName{display:block;text-align:center;margin-top:-45px;line-height: 30px;color:#fff;font-size: 18px;text-shadow: 0 1px 1px rgba(0,0,0,.35);}
-.project .right{display:none;float:right;margin-top:-25px;width:16px;height:16px;}
-.project .edit{background:url(../img/edit.png) no-repeat;margin-right:40px;}
+.project .projectName{display:block;text-align:center;margin-top:-45px;line-height: 30px;color:#fff;font-size: 20px;text-shadow: 0 1px 1px rgba(0,0,0,.35);}
+.project .projectContent{display:block;text-align:center;color:#dedede;}
+.project .right{display:none;float:right;margin-top:18px;width:16px;height:16px;}
+.project .edit{background:url(../img/edit.png) no-repeat;margin-right:5px;}
 .project .delete{background:url(../img/delete.png) no-repeat;margin-right:20px;}
 .project:hover .right{display:inline-block;}
 .project .edit:hover{background:url(../img/editH.png) no-repeat;}
@@ -122,6 +123,9 @@ input[type=button].info:hover{background-color: #6d9dc6;}
 
 input[type=button].del{background-color: #d9534f;border-color: #d43f3a;}
 input[type=button].del:hover{background-color: #d2322d;}
+
+input[type=button].success{background-color: #5cb85c;border:1px solid #4cae4c;}
+input[type=button].success:hover{background-color: #47a447;}
 
 input[type=button].downLoad{width:60px;line-height:25px;font-family: 微软雅黑;margin:0 5px;border-radius: 5px;color: #fff;background-color: #5cb85c;border:1px solid #4cae4c;}
 input[type=button].downLoad:hover{background-color: #47a447;}

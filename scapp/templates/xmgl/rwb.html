@@ -9,20 +9,20 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 	<link href="../../static/css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
 	
 	<style type="text/css">
 		.worktype{font-size:15px;font-weight:bold;margin-left:15px;font-family:"Microsoft YaHei";}
-		.sidebar-nav{height:440px;padding-left:0;padding-right:0;}
+		.sidebar-nav{height:440px;padding-left:0;padding-right:0;background:#fff;}
 		.task a{color:#000;}
 		.task{width:100%;margin:5px 0;height:390px;overflow-y:auto;overflow-x:hidden;font-family:"Microsoft YaHei";}
-		.task li{width:100%;background:white;border:1px solid #e3e3e3;list-style:none;margin-left:-1px;margin-top:5px;}
+		.task li{width:100%;background:#e3e3e3;border:1px solid #ccc;list-style:none;margin-left:-1px;margin-top:5px;}
 		.task li:hover{cursor:pointer;}
 		.task div{display:inline-block;margin:15px;}
 		.task1 a{color:#000;text-decoration:line-through;}
 		.task1{width:100%;margin:5px 0;height:390px;overflow-y:auto;overflow-x:hidden;font-family:"Microsoft YaHei";}
-		.task1 li{width:100%;background:white;border:1px solid #e3e3e3;list-style:none;margin-left:-1px;margin-top:5px;text-decoration:line-through;}
+		.task1 li{width:100%;background:#e3e3e3;border:1px solid #ccc;list-style:none;margin-left:-1px;margin-top:5px;text-decoration:line-through;}
 		.task1 li:hover{cursor:pointer;}
 		.task1 div{display:inline-block;margin:15px;}
 		.list-style{height:75px;width:10px;background:#d9d9d9;display:inline-block;}
@@ -33,15 +33,14 @@
 </head>
 
 <body>
-	<form id="content" class="content" method="POST">	
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">项目管理</a>/<a href="#">个人项目</a>/<a href="#">{{task.subject}}</a>
-		</div>		
-		<div class="back">
-			<input type="button" value="返回" class="btn btn-info" onclick="iframe('xmgl/xmxx/{{task_id}}')"/>
-		</div>
-		<i class="icon-bookmark"></i><span class="titletip">任务板</span><br/>	
-		<div class="row-fluid">	
+	<form id="content" class="content" method="POST">			
+		<h1>任务板</h1>
+		<h2>
+			当前位置：项目管理 / 个人项目 / {{task.subject}} / <span>任务板</span>
+			<input type="button" value="返 回" class="downLoad" onclick="iframe('xmgl/xmxx/{{task_id}}')" style="float:right;margin-top:-5px;margin-right:2%;"/>
+		</h2>		
+		
+		<div class="row-fluid" style="width:98%">	
 			<div class="span4">				
 				<div class="well sidebar-nav" style="padding-top:10px;margin-bottom:0px;">
 					<span class="worktype" id="count_1"></span>

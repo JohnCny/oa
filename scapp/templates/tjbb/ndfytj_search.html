@@ -9,42 +9,42 @@
 
 	<!-- The styles -->
 	<link href="../../static/css/bootstrap.css" rel="stylesheet">
-	<link href="../../static/css/main.css" rel="stylesheet">
+	<link href="../../static/css/main2.css" rel="stylesheet">
 	<link href="../../static/css/datepicker.css" rel="stylesheet">
 		
 </head>
 
 <body>	
 	<form class="content" action="/tjbb/ndfytj" method="POST">
-		<div class="well place">
-			<i class="icon-home"></i><a href="#">统计报表</a>/<a href="#">年度费用统计</a>
-		</div>	
-		<div class="row-fluid">
-			<i class="icon-bookmark"></i><span class="titletip">统计搜索</span>
-			<div>
-				<div class="divBorder">
-					<table class="table-list">
-						<tr>
-							<td class="table-label">公司名称</td>
-							<td>
-								<select name="org">
-									{%- for obj in data%}
-										<option value="{{obj.id}}">{{obj.name}}</option>
-									{%- endfor%}
-								</select>
-							</td>
-							<td class="table-label">统计年份</td>
-							<td>
-								<select name="time" id='year'>
+		<h1>年度费用统计</h1>
+		<h2>当前位置：统计报表 / <span>年度费用统计</span></h2>
+		
+		<div class="report common">
+			<h5>统计搜索</h5>
+			<table>
+				<tr>
+					<td class="pull-right">公司名称</td>
+					<td>
+						<select name="org">
+							{%- for obj in data%}
+								<option value="{{obj.id}}">{{obj.name}}</option>
+							{%- endfor%}
+						</select>
+					</td>
+					<td class="pull-right">统计年份</td>
+					<td>
+						<select name="time" id='year'>
 
-								</select>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<input type="submit" class="btn btn-info" value="搜索"/>										
-			</div><!--/搜索-->
-		</div><!--/row-fluid -->
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			<p class="button">
+				<input type="submit" value="搜 索"/>
+			</p>		
+		</div>
+				
 	</form><!--/content -->
 	
 	<script src="../../static/js/jquery-1.7.2.min.js"></script>

@@ -47,7 +47,7 @@
 					<td>结束时间：<span>{{reimbursement.end_date}}</span></td>
 				</tr>	
 				<tr>	
-					<td>报销事由
+					<td colspan="2">报销事由
 						<select name="reason" disabled  style="border:none;background:none;color:#428bca;overflow: hidden;">
 							<option value="1"
 							{%- if reimbursement.reason == 1 %}
@@ -185,8 +185,10 @@
 							{%- endif %}
 							>销售部费用</option>
 						</select>
-					</td>	
-					<td>费用描述：<span>{{reimbursement.describe}}</span></td>	
+					</td>
+				</tr>	
+				<tr>	
+					<td colspan="2">费用描述：<span>{{reimbursement.describe}}</span></td>	
 				</tr>
 			</table>					
 		</div>

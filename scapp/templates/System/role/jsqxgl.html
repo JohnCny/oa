@@ -9,17 +9,22 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
-	<style type="text/css">
-		
+	<link href="/static/css/main2.css" rel="stylesheet">
+	<style type="text/css">		
+		.alert{width:90%;margin-left:2.5%;margin-bottom:0;margin-top:20px;}
 	</style>
 </head>
 
 <body onload="setTimeOut();">	
 	<div class="content">
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">系统管理</a>/<a href="#">角色权限管理</a>
-		</div>	
+		
+		<h1>角色权限管理</h1>
+		<h2>当前位置：系统管理 / <span>角色权限管理</span></h2>
+		<div class="report common tableB">
+			<h5>
+				角色清单
+				<input type="button" value="新 增" class="downLoad" onclick="iframe('System/new_role')"/>
+			</h5>
 		{%- with messages = get_flashed_messages(with_categories=true) %}
 		  	{%- if messages %}
 	    	{%- for category, message in messages %}
@@ -29,16 +34,10 @@
 	    	{%- endfor %}
 		  	{%- endif %}
 		{%- endwith %}
-		<div class="row-fluid">
-			<i class="icon-bookmark"></i><span class="titletip">角色清单</span>			
-			<div style="margin-bottom:5px;">
-				<a type="button" class="btn btn-info" href="#" onclick="iframe('System/new_role')">新增</a>				
-			</div>
-			<div style="border:1px solid #94c1dc;">				
-				<table class="table-list" cellspacing="10" id="uesr-list">
+			<div class="wdlb">
+				<table class="center">
 					<thead>
 						<tr>
-							<th><input type="button" class="btn btn-info btn-mini" value="反选" style="margin:0;" onclick="ChkAllClick()"/></th>
 							<th>角色名称</th>							
 							<th>角色级别</th>							
 							<th>操作</th>
@@ -47,7 +46,6 @@
 					<tbody class="center">
 						{%- for role in roles.items %}
 						<tr>
-							<td><input type="checkbox" onclick="changeColor(this)" name="checkbox"/></td>	
 							<td><a href="#" onclick="iframe('System/edit_role/{{role.id}}')">{{role.role_name}}</a></td>	
 							{%- if role.role_level == 0 %}
 								<td>系统管理员</td>
@@ -65,7 +63,7 @@
 								<td>财务总监</td>
 							{%- endif %}
 							<td>
-								<input type="button" class="btn btn-warning btn-mini" value="删除"/>
+								<input type="button" class="edit del" value="删除"/>
 							</td>
 						</tr>
 						{%- endfor %}

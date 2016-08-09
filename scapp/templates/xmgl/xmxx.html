@@ -9,7 +9,7 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 	<link href="/static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
 	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
@@ -18,7 +18,7 @@
 		a{font-family:"Microsoft YaHei";}
 		a:hover{text-decoration:none;}
 		.span3,.span7{margin:15px 15px 0 0;}
-		.tip-info{border:1px solid #dedede;border-radius:5px;padding:10px;margin-bottom:20px;box-shadow:2px 2px 5px #dedede;}
+		.tip-info{background:#fff;border:1px solid #dedede;border-radius:5px;padding:10px;margin-bottom:20px;box-shadow:2px 2px 5px #dedede;}
 		.tip-head{font-size:17px;font-weight:bold;color:#808080;font-family:"Microsoft YaHei";}
 		.tip-add{font-size:15px;color:#808080;text-decoration:none;font-family:"Microsoft YaHei";}
 		.tip-hover{font-size:15px;color:#0088cc;text-decoration:none;font-family:"Microsoft YaHei";}
@@ -44,10 +44,8 @@
 
 <body >
 	<div class="content">
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">项目管理</a>/<a href="#">个人项目</a>/<a href="#">{{data.subject}}</a>
-		</div>						
-		<i class="icon-bookmark"></i><span class="titletip">{{data.subject}}</span><br/>	
+		<h1>{{data.subject}}</h1>
+		<h2>当前位置：项目管理 / 个人项目 / <span>{{data.subject}}</span></h2>
 		{%- with messages = get_flashed_messages(with_categories=true) %}
 		  	{%- if messages %}
 	    	{%- for category, message in messages %}
@@ -115,20 +113,20 @@
 			</div>
 		</div>
 		<div class="span3">
-				<div class="tip-info">
-					<span class="tip-head">项目任务统计</span>						
-					<hr/>						
-					<blockquote>
-						待完成任务&nbsp;&nbsp;<span class="total" onclick="iframe('xmgl/unfinish/{{task_id}}')">{{list_3}}</span>
-					</blockquote>
-					<blockquote>
-						已完成任务&nbsp;&nbsp;<span class="finish" onclick="iframe('xmgl/finish/{{task_id}}')">{{list_1}}</span>
-					</blockquote>
-					<blockquote>
-						今日待完成任务&nbsp;&nbsp;<span class="today" onclick="iframe('xmgl/today/{{task_id}}')">{{list_2}}</span>
-					</blockquote>
-				</div>
+			<div class="tip-info">
+				<span class="tip-head">项目任务统计</span>						
+				<hr/>						
+				<blockquote>
+					待完成任务&nbsp;&nbsp;<span class="total" onclick="iframe('xmgl/unfinish/{{task_id}}')">{{list_3}}</span>
+				</blockquote>
+				<blockquote>
+					已完成任务&nbsp;&nbsp;<span class="finish" onclick="iframe('xmgl/finish/{{task_id}}')">{{list_1}}</span>
+				</blockquote>
+				<blockquote>
+					今日待完成任务&nbsp;&nbsp;<span class="today" onclick="iframe('xmgl/today/{{task_id}}')">{{list_2}}</span>
+				</blockquote>
 			</div>
+		</div>
 		<div class="Alpha" id="new">
 			<form>
 				<img src="/static/img/close.png" class="close" onclick="$(this).parent().parent().hide();"/>
