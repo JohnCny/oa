@@ -153,7 +153,7 @@
 		function addTd(table){	
 			if(table=="table2"){//是否申请过贷款
 				$("#"+table).append("<tr>" + 
-										"<td class='pull-right'>金额<font class='red'>*</font></td>" + 
+										"<td class='pull-right'>报销金额<font class='red'>*</font></td>" + 
 										"<td>" + 
 											"<span id='amount'>" + 
 												"<input type='text' name='amount' onKeyUp='checkNUM(this)' style='width:80px' onblur='sub()'/>元" + 
@@ -168,7 +168,7 @@
 												"{%- endfor %}" + 
 											"</select>" + 
 										"</td>" + 
-										"<td class='pull-right'>描述</td>	" + 				
+										"<td class='pull-right'>费用描述</td>	" + 				
 										"<td>" + 
 											"<textarea name='describe' class='tbInput'></textarea>" + 						
 										"</td>" + 

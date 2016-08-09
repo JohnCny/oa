@@ -49,20 +49,22 @@ function removeTd(table){
 /*全选*/
 function checkAll(obj,name){
 	var arrSon = document.getElementsByName(name);
+	//alert($(obj).attr("checked"))
 	if($(obj).attr("checked")!="checked"){
-		$(obj).attr("checked","checked")
-		for(i=0;i<arrSon.length;i++) {
-			if(arrSon[i].checked!=true)
-				arrSon[i].click();
-		}
-	}
-	else{
-		$(obj).removeAttr("checked")
 		for(i=0;i<arrSon.length;i++) {
 			if(arrSon[i].checked!=false)
 				arrSon[i].click();
-		}
+		}$(obj).removeAttr("checked")
+		//$(obj).attr("checked","checked")
 	}
+	else{
+		
+		for(i=0;i<arrSon.length;i++) {
+			if(arrSon[i].checked!=true)
+				arrSon[i].click();
+		}$(obj).attr("checked","checked")
+		//$(obj).removeAttr("checked")
+	}//alert($(obj).attr("checked"))
 }
 
 
