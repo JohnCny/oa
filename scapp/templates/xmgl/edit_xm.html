@@ -9,37 +9,45 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 
 	<!-- ************************验证样式************************-->
 	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
 	<style type="text/css">
 		
-		form{background:#fff;margin:70px auto;padding:10px 20px;border-radius:10px;box-shadow:0px 0px 5px #fff;}
-		form p{color:gray;font-size:17px;font-family:"Microsoft YaHei";}
-		.title{color:#75b155;font-size:17px;line-height:40px;border-bottom:1px solid #a4c98f;margin-bottom:20px;text-align:left;}
-		.close{float:right;margin-top:8px;}
-		span{color:#707070;line-height:50px;font-size:16px;}
-		input[type=text]{font-family:"Microsoft YaHei";width:80%;height:30px;}
-		textarea{font-family:"Microsoft YaHei";width:95%;height:80px;}
-		.btn{display:block;margin:20px auto;width:30%;font-family:'Microsoft YaHei';}
-		.textfieldRequiredMsg{font-size:14px;color: #CC3333;}
 	</style>
 	
 </head>
 
 <body>	
 	<form class="content" id="editform" method="POST" action="/xmgl/edit">
-		<p class="title">编辑项目</p>
-		<p>项目信息</p>
-		<span id="name1">
-			<input type="hidden" value={{data.id}} name="task_id"/>
-			<input type="text" placeholder="项目名称" value="{{data.subject}}" name="task_name" id="task_name"/>
-			<span class="textfieldRequiredMsg">不能为空</span>
-		</span><br/>
-		<textarea placeholder="项目简介（可选）" name="task_content">{{data.content}}</textarea><br/>
-		<input type="button" class="btn btn-info" value="保存" onclick="editTask()"/>
+		<h1>新建项目</h1>
+		<h2>当前位置：项目管理 / 个人项目 / <span>新建项目</span></h2>
+		<div class="report common tableB">
+			<h5>填写部门项目</h5>
+			<table>
+				<tr>
+					<td class="pull-right">项目名称<font class="red">*</font>：</td>
+					<td>
+						<span id="name1">
+							<input type="hidden" value={{data.id}} name="task_id"/>
+							<input type="text" placeholder="项目名称" value="{{data.subject}}" name="task_name" id="task_name"/>
+							<span class="textfieldRequiredMsg">不能为空</span>
+						</span>
+					</td>					
+				</tr>
+				<tr>
+					<td class="pull-right">项目简介：</td>
+					<td>
+						<textarea placeholder="项目简介（可选）" name="task_content">{{data.content}}</textarea>
+					</td>					
+				</tr>
+			</table>
+		</div>
+		<p class="button">
+			<input type="button" value="保 存" onclick="editTask()"/>
+		</p>
 	</form>
 	
 	<script src="/static/js/jquery-1.7.2.min.js"></script>

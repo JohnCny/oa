@@ -9,7 +9,7 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 	<style type="text/css">
 		
 	</style>	
@@ -18,49 +18,49 @@
 
 <body>	
 	<form class="content" id="user_list" method="POST">
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">项目管理</a>/<a href="#">个人项目</a>/<a href="#">{{task.subject}}</a>
-		</div>	
-		<div class="back">
-			<input type="button" value="返回" class="btn btn-info" onclick="iframe('xmgl/xmxx/{{task_id}}')"/>
-		</div>
-		<div class="row-fluid">
-			<i class="icon-bookmark"></i><span class="titletip">添加组员</span>
-			<div class="divBorder">				
-				<table class="table-list" cellspacing="10">
-					<thead>
-						<tr>
-							<th><input type="button" class="btn btn-info btn-mini" value="反选" style="margin:0;" onclick="ChkAllClick()"/></th>
-							<th>编号</th>
-							<th>登录名</th>
-							<th>真实姓名</th>
-						</tr>
-					</thead>
-					<tbody class="center">
-						{%- for obj in data%}
-						<tr>
-							{%- if obj.id!=1%}
-								{%- if obj.user_id%}
-									<td><input type="checkbox" name="checkbox" value="{{obj.id}}" onclick="changeColor(this)" checked="checked"/></td>
-								{%- else%}
-									<td><input type="checkbox" name="checkbox" value="{{obj.id}}" onclick="changeColor(this)"/></td>
-								{%- endif%}
-								<td>{{obj.id}}</td>
-								<td>{{obj.login_name}}</td>
-								<td>{{obj.real_name}}</td>
+		<h1>添加组员</h1>
+		<h2>
+			当前位置：项目管理 / 个人项目 / {{task.subject}} / <span>添加组员</span>
+			<input type="button" value="返 回" class="downLoad" onclick="iframe('xmgl/xmxx/{{task_id}}')" style="float:right;margin-top:-5px;margin-right:2%;"/>
+		</h2>
+		<div class="report common tableB">
+			<h5>职员列表：<input type="text" onchange="search(this)" placeholder="搜索真实姓名"/></h5>
+			<table class="center">
+				<thead>
+					<tr>
+						<th><input type="checkbox" onclick="checkAll(this,'checkbox')"/></th>
+						<th>编号</th>
+						<th>登录名</th>
+						<th>真实姓名</th>
+					</tr>
+				</thead>
+				<tbody class="center">
+					{%- for obj in data%}
+					<tr>
+						{%- if obj.id!=1%}
+							{%- if obj.user_id%}
+								<td><input type="checkbox" name="checkbox" value="{{obj.id}}" checked="checked"/></td>
+							{%- else%}
+								<td><input type="checkbox" name="checkbox" value="{{obj.id}}" /></td>
 							{%- endif%}
-						</tr>
-						{%-endfor%}
-					</tbody>
-				</table>
-			</div>
-			<input type="button" value="提交" class="btn btn-info" onclick="addUser()"/>
-		</div><!--/row-fluid -->
+							<td>{{obj.id}}</td>
+							<td>{{obj.login_name}}</td>
+							<td name="search">{{obj.real_name}}</td>
+						{%- endif%}
+					</tr>
+					{%-endfor%}
+				</tbody>
+			</table>
+		</div>
+		<p class="button">
+			<input type="button" value="添 加" onclick="addUser()"/>
+		</p>
 	</form><!--/content -->
 	
 	<script src="/static/js/jquery-1.7.2.min.js"></script>
 	<script src="/static/js/jquery.json-2.4.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/mian2.js"></script>
 	<script src="/static/js/script.js"></script>
 	<script type="text/javascript">
 		function addUser(){

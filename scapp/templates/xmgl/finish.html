@@ -9,11 +9,11 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 	<style type="text/css">
-		.work{padding:0;margin:0;margin-top:10px;}
+		.work{padding:0;margin:0;margin-top:10px;background:#fff;}
 		.work li{list-style:none;border:1px solid #e0e0e0;font-family:"Microsoft YaHei";padding:10px;font-size:15px;border-radius:5px;margin-bottom:10px;text-decoration:line-through;}
-		.work li:hover{background:#eeeeee;}
+		.work li:hover{background:#f8f8f8;}
 		.work .worker{color:gray;}
 		input[type=checkbox]{margin-top:0;}
 	</style>
@@ -22,14 +22,12 @@
 
 <body>	
 	<div class="content" action="/xmgl/xmxx">
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">项目管理</a>/<a href="#">个人项目</a>/<a href="#">{{task.subject}}</a>
-		</div>	
-		<div class="back">
-			<input type="button" value="返回" class="btn btn-info" onclick="iframe('xmgl/xmxx/{{task_id}}')"/>
-		</div>
+		<h1>已完成任务</h1>
+		<h2>
+			当前位置：项目管理 / 个人项目 / {{task.subject}} / <span>已完成任务</span>
+			<input type="button" value="返 回" class="downLoad" onclick="iframe('xmgl/xmxx/{{task_id}}')" style="float:right;margin-top:-5px;margin-right:2%;"/>
+		</h2>
 		<div class="row-fluid">
-			<i class="icon-bookmark"></i><span class="titletip">已完成任务</span>	
 			<ul class="work">
 				{%- for obj in data%}
 				<li>

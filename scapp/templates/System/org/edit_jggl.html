@@ -9,106 +9,128 @@
 
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">		
+	<link href="/static/css/main2.css" rel="stylesheet">		
 	<!-- ************************验证样式************************-->
 	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">'
+	<style type="text/css">
+		.tableB .pull-right {line-height: 40px;}
+	</style>
 	
 </head>
 
 <body>	
-	<div class="content">
-		<div class="well place">			
-			<i class="icon-home"></i><a href="#">系统管理</a>/<a href="#">部门管理</a>
-		</div>		
-		<div class="row-fluid">
-			<i class="icon-bookmark"></i><span class="titletip">部门信息</span>			
-			<form method="POST" action="/System/edit_jggl/{{obj.id}}">
-				<div style="border:1px solid #94c1dc;">
-					<table class="table-list">
-						<tr>
-							<td class="table-label">部门名称<font class="red">*</font></td>	
-							<td>
-								<span id="spry_jgmc">
-									<input type="text" name="name" value={{obj.name}} />
-									<span class="textfieldRequiredMsg">部门名称不能为空</span>
-								</span>
-							</td>						
-						</tr>
-						<tr>
-							<td class="table-label">负责人<font class="red">*</font></td>
-							<td>
-								<input type="hidden" id="A_manager" name="manager" value="{{obj.manager}}"/>
-								<input type="text" id="A_manager_name" value="{{obj.oa_org_ibfk_2.real_name}}" readonly/>
-								<input type="button" value="搜索" class="btn" onclick="$('#A_xdyss').show();"/>
-								<span id="A_manager_name_spay">
-									<input type="hidden" id="yzA" value="{{obj.oa_org_ibfk_2.real_name}}"/>
-									<span class="textfieldRequiredMsg">不能为空</span>
-								</span>							
-								<div class="display-div" id="A_xdyss" style="margin-top:-100px"><!--onmouseleave="setTimeout(function(){$('.display-div').hide();},3000)"-->
-									<i class="icon-bookmark"></i><span class="titletip">搜索</span>
-									<div style="border:1px solid #94c1dc;">
-										<table class="table-list">
-											<tr>	
-												<td class="table-label">用户名称</td>
-												<td><input type="text" onchange="search(this)"/></td>	
-											</tr>
-										</table>
-									</div>																		
-									<input type="button" value="关闭" class="btn btn-info btn-mini pull-right" onclick="$('.display-div').hide();"/>
-									<input type="button" value="搜索" class="btn btn-info btn-mini pull-right"/><br/>
-									<i class="icon-bookmark"></i><span class="titletip">用户列表</span>
-									<div style="border:1px solid #94c1dc;">
-										<table class="table-list">
-											<thead>
-												<tr>
-													<th>选择</th>	
-													<th>用户编号</th>												
-													<th>用户名称</th>												
-												</tr>
-											</thead>
-											<tbody class="center">
-												{%- for obj in user %}
-												<tr>
-													<td><input type="radio" name="xdy" onclick="get_name(this,'A_manager_name','A_manager');" onblur="hiddenInput('yzA',this)"/></td>	
-													<td>{{obj.id}}</td>												
-													<td name="search">{{obj.real_name}}</td>											
-												</tr>		
-												{%- endfor %}									
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</td>
-							<td class="table-label">审批金额<font class="red">*</font></td>	
-							<td>
-								<span id="spry_jgmc2">
-									{%- if obj.amount %}
-										<input type="text" name="amount" value="{{obj.amount}}" />
-									{%- else %}
-										<input type="text" name="amount" />
-									{%- endif %}
-									<span class="textfieldRequiredMsg">不能为空</span>
-								</span>
-							</td>
-						</tr>	
-						<tr>
-							<td class="table-label">是否财务部<font class="red">*</font></td>	
-							<td>
-								<select name="is_caiwu">
-									<option value="0">否</option>
-									<option value="1">是</option>
-								</select>
-							</td>
-						</tr>							
-					</table>
+	<form method="POST" action="/System/edit_jggl/{{obj.id}}" class="content">
+		<h1>编辑部门</h1>
+		<h2>当前位置：系统管理 / 部门管理 / <span>编辑部门</span></h2>
+		<div class="report common tableB">
+			<h5>填写部门信息</h5>
+			<table>
+				<tr>
+					<td class="pull-right">部门名称<font class="red">*</font>：</td>
+					<td>
+						<span id="spry_jgmc">
+							<input type="text" name="name" value={{obj.name}} />
+							<span class="textfieldRequiredMsg">部门名称不能为空</span>
+						</span>
+					</td>	
+					<td class="pull-right">是否财务部<font class="red">*</font>：</td>	
+					<td>
+						<select name="is_caiwu">
+							<option value="0">否</option>
+							<option value="1">是</option>
+						</select>
+					</td>					
+				</tr>
+				<tr>
+					<td class="pull-right">负责人<font class="red">*</font>：</td>
+					<td>
+						<input type="hidden" id="A_manager" name="manager" value="{{obj.manager}}"/>
+						<input type="text" id="A_manager_name" value="{{obj.oa_org_ibfk_2.real_name}}" readonly onclick="$('.dialog').show();"/>
+						<!--<input type="button" value="搜索" class="btn" onclick="$('#A_xdyss').show();"/>-->
+						<span id="A_manager_name_spay">
+							<input type="hidden" id="yzA" value="{{obj.oa_org_ibfk_2.real_name}}"/>
+							<span class="textfieldRequiredMsg">不能为空</span>
+						</span>							
+						<!--<div class="display-div" id="A_xdyss" style="margin-top:-100px"><!--onmouseleave="setTimeout(function(){$('.display-div').hide();},3000)"-->
+							<!--<i class="icon-bookmark"></i><span class="titletip">搜索</span>
+							<div style="border:1px solid #94c1dc;">
+								<table class="table-list">
+									<tr>	
+										<td class="table-label">用户名称</td>
+										<td><input type="text" onchange="search(this)"/></td>	
+									</tr>
+								</table>
+							</div>																		
+							<input type="button" value="关闭" class="btn btn-info btn-mini pull-right" onclick="$('.display-div').hide();"/>
+							<input type="button" value="搜索" class="btn btn-info btn-mini pull-right"/><br/>
+							<i class="icon-bookmark"></i><span class="titletip">用户列表</span>
+							<div style="border:1px solid #94c1dc;">
+								<table class="table-list">
+									<thead>
+										<tr>
+											<th>选择</th>	
+											<th>用户编号</th>												
+											<th>用户名称</th>												
+										</tr>
+									</thead>
+									<tbody class="center">
+										{%- for obj in user %}
+										<tr>
+											<td><input type="radio" name="xdy" onclick="get_name(this,'A_manager_name','A_manager');" onblur="hiddenInput('yzA',this)"/></td>	
+											<td>{{obj.id}}</td>												
+											<td name="search">{{obj.real_name}}</td>											
+										</tr>		
+										{%- endfor %}									
+									</tbody>
+								</table>
+							</div>
+						</div>-->
+					</td>
+					<td class="pull-right">审批金额<font class="red">*</font>：</td>	
+					<td>
+						<span id="spry_jgmc2">
+							{%- if obj.amount %}
+								<input type="text" name="amount" value="{{obj.amount}}" />
+							{%- else %}
+								<input type="text" name="amount" />
+							{%- endif %}
+							<span class="textfieldRequiredMsg">不能为空</span>
+						</span>
+					</td>
+				</tr>						
+			</table>
+		</div>
+		<p class="button">
+			<input type="submit" value="提 交"/>
+		</p>
+<!--**********************************************对话框**********************************************-->
+		<div class="dialog">
+			<div class="background">				
+				<div class="dialog-box common" style="width:500px;">
+					<h5>搜索：<input type="text" onchange="search(this)" class="short" placeholder="用户名称"/></h5>
+					<img class="close" src="../../../static/img/close.jpg" onclick="$('.dialog').hide();"/>
+					<div class="report common tableB">
+						<table class="center">
+								<tr>
+									<th>选择</th>	
+									<th>用户编号</th>												
+									<th>用户名称</th>												
+								</tr>
+								{%- for obj in user %}
+								<tr>
+									<td><input type="radio" name="xdy" onclick="get_name(this,'A_manager_name','A_manager');" onblur="hiddenInput('yzA',this)"/></td>	
+									<td>{{obj.id}}</td>												
+									<td name="search">{{obj.real_name}}</td>											
+								</tr>		
+								{%- endfor %}	
+						</table>
+					</div>
 				</div>
-				<span class="point">*为必填字段</span><br/>
-				<input type="submit" class="btn btn-info" value="提交" style="margin:0;"/>
-			</form>
-		</div><!--/row-fluid -->
-	</div><!--/content -->
-
+			</div><!--透明背景-->
+		</div><!--对话框-->
+	</form><!--/content -->
+	
 	<script src="/static/js/jquery-1.7.2.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/script.js"></script>
@@ -116,6 +138,14 @@
 	<script type="text/javascript">
 		var sprytextfield = new Spry.Widget.ValidationTextField("spry_jgmc", "none", {validateOn:["blur"]});
 		var sprytextfield2 = new Spry.Widget.ValidationTextField("spry_jgmc2", "none", {validateOn:["blur"]});
+		//信贷员搜索用来赋值
+		function get_name(obj,idText,idValue){
+			var tr=obj.parentElement.parentElement
+			var td=tr.getElementsByTagName("td");
+			$("#" + idText).val(td[2].innerHTML);
+			$("#" + idValue).val(td[1].innerHTML);
+			$(".dialog").hide(); 
+		}
 	</script>
 </body>
 </html>

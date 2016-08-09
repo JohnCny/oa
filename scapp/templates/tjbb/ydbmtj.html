@@ -3,17 +3,19 @@
 <head>	
 	<meta charset="utf-8">
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 	<script type="text/javascript" src="/static/ofc2/json2.js"></script>
 	<script type="text/javascript" src="/static/ofc2/swfobject.js"></script>
 	<script src="/static/js/jquery-1.7.2.min.js"></script>
 </head>
 <body>
-<form id="content" method="POST" action="/Report/flash/export_pic" target="targetFrame"  style="padding-top:50px">
-  <div id="my_chart"></div>
-  <input type="hidden" id="imageData" name="imageData">
-</form>
-<iframe id="targetFrame" name="targetFrame" style="width:0;height:0;display:none"></iframe>
+	<form id="content" method="POST" action="/Report/flash/export_pic" target="targetFrame"  class="content">
+		<h1>部门费用开支(月)</h1>
+		<h2>当前位置：统计报表 / <span>部门费用开支(月)</span></h2>
+		<div id="my_chart"></div>
+		<input type="hidden" id="imageData" name="imageData">
+	</form>
+	<iframe id="targetFrame" name="targetFrame" style="width:0;height:0;display:none"></iframe>
 </body>
 
 <script type="text/javascript">
