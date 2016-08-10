@@ -129,8 +129,6 @@ input[type=button].success:hover{background-color: #47a447;}
 
 input[type=button].downLoad{width:60px;line-height:25px;font-family: 微软雅黑;margin:0 5px;border-radius: 5px;color: #fff;background-color: #5cb85c;border:1px solid #4cae4c;}
 input[type=button].downLoad:hover{background-color: #47a447;}
-/*提示信息*/
-
 /*按钮组*/
 .button{text-align:center;width:98%;}
 .button input{width:90px;line-height:30px;font-family: 微软雅黑;margin:0 5px;border-radius: 5px;color: #fff;background-color: #5cb85c;border:1px solid #4cae4c;}
@@ -147,3 +145,7 @@ input[type=button].downLoad:hover{background-color: #47a447;}
 /*列表页码*/
 .page-div{text-align:center;margin-bottom:20px;margin-top:-10px;color:#767676}
 .page-div img{margin-top:-2.5px;}
+
+/*隐藏select下拉*/
+.hideSelect{display:none;width:240px;height:30px;vertical-align:middle;overflow:hidden;}
+select.disabled{border:none;background:none;color:#428bca;overflow: hidden;padding:0;margin-top:-13px;}

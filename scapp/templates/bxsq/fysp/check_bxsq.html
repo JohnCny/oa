@@ -8,14 +8,14 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main2.css" rel="stylesheet">
-	<link href="/static/css/datepicker.css" rel="stylesheet">
+	<link href="../../../static/css/bootstrap.css" rel="stylesheet">
+	<link href="../../../static/css/main2.css" rel="stylesheet">
+	<link href="../../../static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
-	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<!--<script src="../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
+	<script src="../../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+	<link href="../../../static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+	<!--<script src="../..../../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+	<link href="../..../../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
 	<style type="text/css">
 	</style>
 	
@@ -28,8 +28,8 @@
 			<h5>报销单</h5>
 			<table id="table2" class="bxd">
 				<tr>
-					<td>项目名称：
-						<select name="project_id" style="width:60%;border:none;background:none;color:#428bca;overflow: hidden;" disabled>
+					<td>项目名称：<span id="xmmc"></span>
+						<div class="hideSelect"><select name="project_id" class="disabled" id="select1" disabled>
 							{%- for obj in project %}
 								{%- if reimbursement.project_id == obj.id %}
 									<option value="{{obj.id}}" selected>{{obj.project_name}}</option>
@@ -37,8 +37,8 @@
 									<option value="{{obj.id}}">{{obj.project_name}}</option>
 								{%- endif %}
 							{%- endfor %}
-						</select>
-					</td>	
+						</select></div>
+					</td>
 					<td>报销金额：<span>￥{{reimbursement.amount}}</span>	</td>
 				</tr>	
 				<tr>						
@@ -46,8 +46,8 @@
 					<td>结束时间：<span>{{reimbursement.end_date}}</span></td>
 				</tr>	
 				<tr>	
-					<td colspan="2">报销事由
-						<select name="reason" disabled  style="border:none;background:none;color:#428bca;overflow: hidden;">
+					<td colspan="2">报销事由：<span id="bxsy"></span>
+						<div class="hideSelect"><select name="reason" id="select2" disabled  class="disabled">
 							<option value="1"
 							{%- if reimbursement.reason == 1 %}
 								selected
@@ -183,7 +183,7 @@
 								selected
 							{%- endif %}
 							>销售部费用</option>
-						</select>
+						</select></div>
 					</td>
 				</tr>	
 				<tr>	
@@ -216,10 +216,10 @@
 		</p>
 	</form>	
 
-	<script src="/static/js/jquery-1.7.2.min.js"></script>
-	<script src="/static/js/bootstrap.min.js"></script>
-	<script src="/static/js/script.js"></script>
-	<script src="/static/js/bootstrap-datepicker.js"></script>
+	<script src="../../../static/js/jquery-1.7.2.min.js"></script>
+	<script src="../../../static/js/bootstrap.min.js"></script>
+	<script src="../../../static/js/script.js"></script>
+	<script src="../../../static/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">		
 		var sprytextfield1 = new Spry.Widget.ValidationTextField("amount", "none");	
 		function setTextarea(){
@@ -239,7 +239,16 @@
             var form = oAnotherFrame.contentWindow.document.getElementById("tests");
             form.submit(); 
 		}
-			
+		$(document).ready(function(){			
+			var obj = document.getElementById("select1"); //selectid
+			var index = obj.selectedIndex; // 选中索引
+			var text = obj.options[index].text;
+			$("#xmmc").html(text)	
+			var obj2 = document.getElementById("select2"); //selectid
+			var index2 = obj2.selectedIndex; // 选中索引
+			var text2 = obj2.options[index2].text;
+			$("#bxsy").html(text2)
+		})	
 	</script>
 </body>
 </html>
