@@ -11,7 +11,12 @@
 	<link href="../static/css/index2.css" rel="stylesheet">
 	<link href="../static/css/main2.css" rel="stylesheet">
 	<style type="text/css">  
-		.divNav{border:1px solid #dedede;background:#fff;border-radius:5px;box-shadow:2px 2px 5px #dedede;text-align:center;width:18.2%;display:inline-block;float:left;margin-right:1.5%;padding-top:20px;padding-bottom:20px;margin-bottom:15px;font:16px "Microsoft YaHei";color:#000;}
+		.divNav{border:1px solid #dedede;border-radius:5px;box-shadow:2px 2px 5px #dedede;text-align:center;width:18.2%;display:inline-block;float:left;margin-right:1.5%;padding-top:20px;padding-bottom:20px;margin-bottom:15px;font:16px "Microsoft YaHei";color:#fff;}
+		.bxgl{background:#a678e4;}
+		.xtgl{background:#6a78ff;}
+		.xmgl{background:#5dccd7;}
+		.wdgl{background:#71d8ad;}
+		.tjbb{background:#f29454;}
 		.divNav img{height:60px;}
 		.bottom{overflow:auto;}
 		.bottom::-webkit-scrollbar{width:5px;height:10px;}/*滚动条尺寸*/
@@ -93,41 +98,41 @@
 						{%- for obj in privileges %}
 							{%- if obj.privilege_access_value == "bxgl" and obj.privilege_operation != "0" %}
 							<a href="xxgl">
-								<div class="divNav">
-									<img src="/static/img/0_hover.png"/><br/>
+								<div class="divNav bxgl">
+									<img src="/static/img/10.png"/><br/>
 									报销管理
-								</div>
-							</a>
-							{%- endif %}
-							{%- if obj.privilege_access_value == "xtgl" and obj.privilege_operation != "0" %}
-							<a href="xtgl">
-								<div class="divNav">
-									<img src="/static/img/1_hover.png"/><br/>
-									系统管理
-								</div>
-							</a>
-							{%- endif %}
-							{%- if obj.privilege_access_value == "Tjbb" and obj.privilege_operation != "0" %}
-							<a href="Tjbb">
-								<div class="divNav">
-									<img src="/static/img/4_hover.png"/><br/>
-									统计报表
 								</div>
 							</a>
 							{%- endif %}
 							{%- if obj.privilege_access_value == "Wdgl" and obj.privilege_operation != "0" %}
 							<a href="Wdgl">
-								<div class="divNav">
-									<img src="/static/img/2_hover.png"/><br/>
+								<div class="divNav wdgl">
+									<img src="/static/img/13.png"/><br/>
 									文档管理
 								</div>
 							</a>
 							{%- endif %}
 							{%- if obj.privilege_access_value == "xmgl" and obj.privilege_operation != "0" %}
 							<a href="xmgl">
-								<div class="divNav">
-									<img src="/static/img/3_hover.png"/><br/>
+								<div class="divNav xmgl">
+									<img src="/static/img/12.png"/><br/>
 									项目管理
+								</div>
+							</a>
+							{%- endif %}
+							{%- if obj.privilege_access_value == "Tjbb" and obj.privilege_operation != "0" %}
+							<a href="Tjbb">
+								<div class="divNav tjbb">
+									<img src="/static/img/14.png"/><br/>
+									统计报表
+								</div>
+							</a>
+							{%- endif %}							
+							{%- if obj.privilege_access_value == "xtgl" and obj.privilege_operation != "0" %}
+							<a href="xtgl">
+								<div class="divNav xtgl">
+									<img src="/static/img/11.png"/><br/>
+									系统管理
 								</div>
 							</a>
 							{%- endif %}

@@ -93,8 +93,8 @@
 <body onload="datepicker();setTimeOut();">
 	<form name="form" class="content" method="POST" action="/xzfy/edit_xzfy/{{reimbursement.id}}">
 		
-		<h1>编辑费用</h1>
-		<h2>当前位置：报销管理 / 个人查询 / <span>编辑费用</span></h2>
+		<h1>查看费用</h1>
+		<h2>当前位置：报销管理 / 个人查询 / <span>查看费用</span></h2>
 		{%- with messages = get_flashed_messages(with_categories=true) %}
 		  	{%- if messages %}
 	    	{%- for category, message in messages %}
@@ -116,7 +116,8 @@
 				</tr>	
 				<tr>	
 					<td>报销金额：<span>￥{{reimbursement.amount}}</span></td>
-					<td>报销事由：<select style="border:none;background:none;color:#428bca;overflow: hidden;" disabled>
+					<td>报销事由：<span id="bxsy"></span>
+						<div class="hideSelect"><select class="disabled" disabled id="select1">
 							{%- for obj in reasons %}
 								{%- if obj.id == reimbursement.reason %}
 								<option value="{{obj.id}}" selected>{{obj.reason_name}}</option>
@@ -124,7 +125,7 @@
 								<option value="{{obj.id}}">{{obj.reason_name}}</option>
 								{%- endif %}
 							{%- endfor %}
-						</select>
+						</select></div>
 					</td>										
 				</tr>		
 				<tr>				
@@ -139,6 +140,12 @@
 	<script type="text/javascript">		
 		var sprytextfield1 = new Spry.Widget.ValidationTextField("amount", "none");		
 		var sprytextfield2 = new Spry.Widget.ValidationTextField("A_manager_name_spay", "none");
+		$(document).ready(function(){			
+			var obj = document.getElementById("select1"); //selectid
+			var index = obj.selectedIndex; // 选中索引
+			var text = obj.options[index].text;
+			$("#bxsy").html(text)
+		})
 	</script>
 </body>
 </html>
