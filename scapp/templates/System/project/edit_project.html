@@ -10,43 +10,31 @@
 	<!-- The styles -->
 	<link href="../../static/css/bootstrap.css" rel="stylesheet">
 	<link href="../../static/css/main2.css" rel="stylesheet">
-	<link href="../../static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
 	<script src="../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 	<link href="../../static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<!--<script src="../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
 	<style type="text/css">
 	</style>
 	
 </head>
 
-<body onload="datepicker()">
+<body>
 	<form class="content" method="POST" action="/System/edit_project/{{project.id}}">		
 		<h1>编辑项目</h1>
 		<h2>当前位置：系统管理 / 项目管理 / <span>编辑项目</span></h2>
 		<div class="report common">
 			<h5>填写项目信息</h5>
-		{%- with messages = get_flashed_messages(with_categories=true) %}
-		  	{%- if messages %}
-	    	{%- for category, message in messages %}
-	    	<div class="alert alert-{{category}}" style="width:245px;margin:-10px auto 10px;">
-	      		{{message}}
-	      	</div>
-	    	{%- endfor %}
-		  	{%- endif %}
-		{%- endwith %}
 			<table>
 				<tr>
 					<td class="pull-right">项目编号<font class="red">*</font>：</td>
-					<td width="35%">
+					<td style="width:35%">
 						<span id="project_num">
 							<input type="text" name="project_num" value="{{project.project_num}}" />
 							<span class="textfieldRequiredMsg">不能为空</span>
 						</span>	
 					</td>	
-					<td class="pull-right">项目名称<font class="red">*</font></td>
-					<td>
+					<td class="pull-right">项目名称<font class="red">*</font>：</td>
+					<td style="width:35%">
 						<span id="project_name">
 							<input type="text" name="project_name" value="{{project.project_name}}" />
 							<span class="textfieldRequiredMsg">不能为空</span>
@@ -54,25 +42,25 @@
 					</td>										
 				</tr>	
 				<tr>
-					<td class="pull-right">合同编号<font class="red">*</font></td>
+					<td class="pull-right">合同编号<font class="red">*</font>：</td>
 					<td>
 						<span id="contract_num">
 							<input type="text" name="contract_num" value="{{project.contract_num}}" />
 							<span class="textfieldRequiredMsg">不能为空</span>
 						</span>											
 					</td>	
-					<td class="pull-right">项目描述</td>
+					<td class="pull-right">项目描述：</td>
 					<td>
 						<input type="text" name="project_describe" value="{{project.project_describe}}" />																		
 					</td>				
 				</tr>	
 				<tr>
 					{%- if project.p_org_id %}
-					<td class="pull-right"><input type="radio" name="belong" value="1" onclick="selectbelong(1)" checked>所属部门<font class="red">*</font></td>
+					<td class="pull-right"><input type="radio" name="belong" value="1" onclick="selectbelong(1)" checked>所属部门<font class="red">*</font>：</td>
 					<td>
 						<select id="p_org_id" name="p_org_id" style="width:270px;">
 					{%- else %}
-					<td class="pull-right"><input type="radio" name="belong" value="1" onclick="selectbelong(1)">所属部门<font class="red">*</font></td>
+					<td class="pull-right"><input type="radio" name="belong" value="1" onclick="selectbelong(1)">所属部门<font class="red">*</font>：</td>
 					<td>
 						<select id="p_org_id" name="p_org_id" style="width:270px;" disabled>
 					{%- endif %}	
@@ -86,11 +74,11 @@
 						</select>										
 					</td>	
 					{%- if project.p_project_id %}
-					<td class="pull-right"><input type="radio" name="belong" value="2" onclick="selectbelong(2)" checked>所属父项目<font class="red">*</font></td>
+					<td class="pull-right"><input type="radio" name="belong" value="2" onclick="selectbelong(2)" checked>所属父项目<font class="red">*</font>：</td>
 					<td>
 						<select id="p_project_id" name="p_project_id" style="width:270px;">
 					{%- else %}
-					<td class="pull-right"><input type="radio" name="belong" value="2" onclick="selectbelong(2)">所属父项目<font class="red">*</font></td>
+					<td class="pull-right"><input type="radio" name="belong" value="2" onclick="selectbelong(2)">所属父项目<font class="red">*</font>：</td>
 					<td>
 						<select id="p_project_id" name="p_project_id" style="width:270px;" disabled>
 					{%- endif %}
@@ -105,7 +93,7 @@
 					</td>			
 				</tr>	
 				<tr>
-					<td class="pull-right">所属客户<font class="red">*</font></td>
+					<td class="pull-right">所属客户<font class="red">*</font>：</td>
 					<td>
 						<select name="customer_id" style="width:270px;">
 							{%- for obj in customers %}
@@ -131,7 +119,7 @@
 					</td>
 				</tr>
 				<tr>	
-					<td class="pull-right">负责人<font class="red">*</font></td>
+					<td class="pull-right">负责人<font class="red">*</font>：</td>
 					<td>
 						<input type="hidden" id="A_manager" name="manager_id" value="{{project.manager_id}}"/>
 						<input type="text" id="A_manager_name" value="{{project.oa_project_ibfk_4.real_name}}" readonly onclick="$('.dialog').show();"/>
@@ -175,7 +163,7 @@
 							</div>
 						</div>-->
 					</td>
-					<td class="pull-right">审批金额<font class="red">*</font></td>
+					<td class="pull-right">审批金额<font class="red">*</font>：</td>
 					<td>
 						<span id="amount">
 							{%- if project.amount %}
@@ -223,7 +211,6 @@
 	<script src="../../static/js/jquery-1.7.2.min.js"></script>
 	<script src="../../static/js/bootstrap.min.js"></script>
 	<script src="../../static/js/script.js"></script>
-	<script src="../../static/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">		
 		var sprytextfield1 = new Spry.Widget.ValidationTextField("project_num", "none");		
 		var sprytextfield2 = new Spry.Widget.ValidationTextField("project_name", "none");	

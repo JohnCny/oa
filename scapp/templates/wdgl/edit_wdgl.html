@@ -56,16 +56,16 @@
 			<h5>文档信息</h5>
 			<table>									
 				<tr>	
-					<td class="pull-right">信息名称<font class="red">*</font></td>
-					<td colspan="3">
+					<td class="pull-right">信息名称<font class="red">*</font>：</td>
+					<td style="width:35%">
 						<span id="name">	
 							<input type="text" name="name" value="{{doc.name}}" onchange="spryMaxLength(this,32)"/>
 							<span class="textfieldRequiredMsg">不能为空</span>
 							<span class="errorInfo">字符数不得大于32</span>
 						</span>
 					</td>	
-					<td class="pull-right">附件</td>
-					<td colspan="3">
+					<td class="pull-right">附件：</td>
+					<td style="width:35%">
 						<span id="file">	
 							<input type="file" id="attachment" name="attachment" onchange="return FileUpload_onselect()" />
 

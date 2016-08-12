@@ -8,20 +8,19 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="../../static/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="/static/css/zTreeStyle/zTreeStyle.css" type="text/css">
-	<link href="../../static/css/main2.css" rel="stylesheet">
-	<link href="../../static/css/datepicker.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
+	<link href="/static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
-	<script src="../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<script src="../../static/js/jquery-1.7.2.min.js"></script>
+	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+	<script src="/static/js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.ztree.core-3.5.js"></script>
-	<script src="../../static/js/bootstrap.min.js"></script>
-	<script src="../../static/js/script.js"></script>
-	<script src="../../static/js/bootstrap-datepicker.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/script.js"></script>
+	<script src="/static/js/bootstrap-datepicker.js"></script>
 	<style type="text/css">
-		.table-list .table-label{width:140px;}
 	</style>
 	<SCRIPT type="text/javascript">
 		function changeselect(id){
@@ -60,25 +59,17 @@
 	</SCRIPT>	
 </head>
 
-<body onload="datepicker();setTimeOut();">
+<body onload="datepicker();">
 	<form name="form" id="addform" class="content" method="POST" action="/xzfy/edit_xzfy/{{reimbursement.id}}">
 		<h1>编辑费用</h1>
 		<h2>当前位置：报销管理 / 个人查询 / <span>编辑费用</span></h2>
-		{%- with messages = get_flashed_messages(with_categories=true) %}
-		  	{%- if messages %}
-	    	{%- for category, message in messages %}
-	    	<div class="alert alert-{{category}}">
-	      		{{message}}
-	      	</div>
-	    	{%- endfor %}
-		  	{%- endif %}
-		{%- endwith %}
+		
 		<div class="report common">		
 			<h5>填写报销单</h5>
 			<table id="table2">
 				<tr>
-					<td class="pull-right">选择部门<font class="red">*</font></td>
-					<td colspan="1">
+					<td class="pull-right">选择部门<font class="red">*</font>：</td>
+					<td>
 						<select name="org_id" id="org_id" style="width:260px;" onchange="changeselect(this.value)">
 							<option value="-1" selected>请选择</option>
 							{%- for obj in org%}
@@ -86,24 +77,22 @@
 							{%- endfor%}
 						</select>
 					</td>
-					</td>	
-					<td class="pull-right">选择项目<font class="red">*</font></td>
-							<td colspan="1">
-								<select name="project_id" style="width:260px;" id="project_id">
-								
-								</select>
-							</td>
-					</td>									
+					<td class="pull-right">选择项目<font class="red">*</font>：</td>
+					<td>
+						<select name="project_id" style="width:260px;" id="project_id">
+						
+						</select>
+					</td>						
 				</tr>
 				<tr>	
-					<td class="pull-right">金额<font class="red">*</font></td>
+					<td class="pull-right">金额<font class="red">*</font>：</td>
 					<td>
 						<span id="amount">
 							<input type="text" name="amount" value="{{reimbursement.amount}}" onKeyUp="value=value.replace(/[^\d\.]/g,'')"/>元
 							<span class="textfieldRequiredMsg">不能为空</span>
 						</span>						
 					</td>
-					<td class="pull-right">报销事由</td>
+					<td class="pull-right">报销事由：</td>
 					<td colspan="3">
 						<select name="reason">
 							{%- for obj in reasons %}
@@ -117,17 +106,17 @@
 					</td>										
 				</tr>	
 				<tr>						
-					<td class="pull-right">开始时间</td>
+					<td class="pull-right">开始时间：</td>
 					<td>
 						<input type="text" class="datepicker" name="start_date" data-date-format="yyyy-mm-dd" value="{{reimbursement.start_date}}" readonly/>
 					</td>	
-					<td class="pull-right">结束时间</td>
+					<td class="pull-right">结束时间：</td>
 					<td>
 						<input type="text" class="datepicker" name="end_date" data-date-format="yyyy-mm-dd" value="{{reimbursement.end_date}}" readonly/>
 					</td>					
 				</tr>		
 				<tr>
-					<td class="pull-right">描述</td>					
+					<td class="pull-right">描述：</td>					
 					<td colspan="3">
 						<textarea name="describe" class="tbInput">{{reimbursement.describe}}</textarea>						
 					</td>

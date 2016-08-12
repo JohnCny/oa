@@ -8,18 +8,16 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="../../static/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="/static/css/zTreeStyle/zTreeStyle.css" type="text/css">
-	<link href="../../static/css/main2.css" rel="stylesheet">
-	<link href="../../static/css/datepicker.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
-	<script src="../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<script src="../../static/js/jquery-1.7.2.min.js"></script>
+	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+	<script src="/static/js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.ztree.core-3.5.js"></script>
-	<script src="../../static/js/bootstrap.min.js"></script>
-	<script src="../../static/js/script.js"></script>
-	<script src="../../static/js/bootstrap-datepicker.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/script.js"></script>
 	<style type="text/css">
 	</style>
 	<SCRIPT type="text/javascript">
@@ -90,20 +88,12 @@
 	</SCRIPT>	
 </head>
 
-<body onload="datepicker();setTimeOut();">
+<body>
 	<form name="form" class="content" method="POST" action="/xzfy/edit_xzfy/{{reimbursement.id}}">
 		
 		<h1>查看费用</h1>
 		<h2>当前位置：报销管理 / 个人查询 / <span>查看费用</span></h2>
-		{%- with messages = get_flashed_messages(with_categories=true) %}
-		  	{%- if messages %}
-	    	{%- for category, message in messages %}
-	    	<div class="alert alert-{{category}}">
-	      		{{message}}
-	      	</div>
-	    	{%- endfor %}
-		  	{%- endif %}
-		{%- endwith %}
+		
 		<div class="report common">		
 			<h5>报销单</h5>
 			<table class="bxd" id="table2">
@@ -111,7 +101,7 @@
 					<td colspan="2">费用所属：<span>{{belong_name}}</span></td>								
 				</tr>
 				<tr>						
-					<td>开始时间：<span>{{reimbursement.start_date}}</span>	</td>	
+					<td style="width:50%">开始时间：<span>{{reimbursement.start_date}}</span>	</td>	
 					<td>结束时间：<span>{{reimbursement.end_date}}</span></td>					
 				</tr>	
 				<tr>	

@@ -28,14 +28,14 @@
 			<h5>填写角色信息</h5>
 			<table>			
 				<tr>
-					<td class="pull-right">角色名称<font class="red">*</font></td>
-					<td width="36%">
+					<td class="pull-right">角色名称<font class="red">*</font>：</td>
+					<td width="35%">
 						<span id="spry_rolename">
 							<input type="text" id="role_name" name="role_name" value={{role.role_name}} />
-							<span class="textfieldRequiredMsg">角色名称不能为空</span>
+							<span class="textfieldRequiredMsg">不能为空</span>
 						</span>
 					</td>
-					<td class="pull-right">角色级别<font class="red">*</font></td>	
+					<td class="pull-right">角色级别<font class="red">*</font>：</td>	
 					<td>
 						<select id="role_level" name="role_level" style="width:270px;">	
 							{%- if role.role_level == 6 %}

@@ -10,44 +10,31 @@
 	<!-- The styles -->
 	<link href="../../static/css/bootstrap.css" rel="stylesheet">
 	<link href="../../static/css/main2.css" rel="stylesheet">
-	<link href="../../static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
 	<script src="../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 	<link href="../../static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<!--<script src="../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
 	<style type="text/css">
-		.table-list .pull-right{width:140px;}
 	</style>
 	
 </head>
 
-<body onload="datepicker()">
+<body>
 	<form class="content" method="POST" action="/System/new_project">		
 		<h1>新增项目</h1>
 		<h2>当前位置：系统管理 / 项目管理 / <span>新增项目</span></h2>
 		<div class="report common">
 			<h5>填写项目信息</h5>
-		{%- with messages = get_flashed_messages(with_categories=true) %}
-		  	{%- if messages %}
-	    	{%- for category, message in messages %}
-	    	<div class="alert alert-{{category}}" style="width:245px;margin:-10px auto 10px;">
-	      		{{message}}
-	      	</div>
-	    	{%- endfor %}
-		  	{%- endif %}
-		{%- endwith %}
 			<table>
 				<tr>
 					<td class="pull-right">项目编号<font class="red">*</font>：</td>
-					<td width="35%">
+					<td style="width:35%">
 						<span id="project_num">
 							<input type="text" name="project_num"/>
 							<span class="textfieldRequiredMsg">不能为空</span>
 						</span>	
 					</td>	
 					<td class="pull-right">项目名称<font class="red">*</font>：</td>
-					<td>
+					<td style="width:35%">
 						<span id="project_name">
 							<input type="text" name="project_name"/>
 							<span class="textfieldRequiredMsg">不能为空</span>
@@ -113,7 +100,6 @@
 	<script src="../../static/js/jquery-1.7.2.min.js"></script>
 	<script src="../../static/js/bootstrap.min.js"></script>
 	<script src="../../static/js/script.js"></script>
-	<script src="../../static/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">		
 		var sprytextfield1 = new Spry.Widget.ValidationTextField("project_num", "none");		
 		var sprytextfield1 = new Spry.Widget.ValidationTextField("project_name", "none");	
