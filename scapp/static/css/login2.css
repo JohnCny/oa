@@ -1,7 +1,7 @@
 @charset "UTF-8";
 *{font: normal 15px "Microsoft YaHei";margin:0;padding:0;}
 /*背景图片*/
-body{background: url(../img/bj2.jpg) no-repeat #72c2bf;background-size: cover;}
+body{background: url(../img/bj2.jpg) no-repeat #72c2bf;background-size: 100%;background-size: cover;}
 
 /*透明外框*/
 .loginBox{width:400px;height:310px;background:rgba(255,255,255,0.3);margin:0 auto;padding:15px 15px 23px 15px;margin-top:150px;border-radius:10px;}

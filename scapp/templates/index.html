@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>OA管理系统</title>	
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
 	<meta name="author" content="Muhammad Usman">
@@ -26,102 +27,47 @@
 			<div class="slowDown">
 				<img src="../static/img/slowDown.png" class="boxJ"/>
 				<ul>
-					<li><i class="gr"></i><a href="javascript:void(0);">个人资料</a></li>
+					<!-- <li><i class="gr"></i><a href="javascript:void(0);">个人资料</a></li> -->
 					<li onclick="changeiframe('change_password/{{current_user.id}}');"><i class="gm"></i><a href="javascript:void(0);">修改密码</a></li>
 					<li onclick="iframe('logout')"><i class="dc"></i><a>注销</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
-<!--***************************************顶部*******************************************************-->
-	<!--<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container-fluid">				
-				<a class="brand" href="javascript:void(0);" onclick="iframe('welcome')">OA管理系统</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav pull-right">
-						<li class="dropdown">
-							<a href="javascript:void(0);" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-user icon-white"></i>&nbsp;{{current_user.real_name}}<b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-								<li><a href="javascript:void(0);" onclick="changeiframe('change_password/{{current_user.id}}');">修改密码</a></li>
-								<li class="divider"></li>
-								<li><a href="logout">注销</a></li>
-							</ul>
-						</li>
-					</ul>					
-					<!-- <ul class="nav" id="topmenu">
-					{%- for obj in privileges %}
-							{%- if obj.privilege_access_value == "bxgl" and obj.privilege_operation != "0" %}
-						<li 
-							{%- if menu == "xxgl"%}
-								class="active"
-							{%- elif menu == "dsp"%}
-								class="active"
-							{%- endif %}
-							onclick="iframe('xxgl')"><a href="javascript:void(0);">报销管理</a></li>
-						{%- endif %}	
-							
-						{%- if obj.privilege_access_value == "xtgl" and obj.privilege_operation != "0" %}
-						<li 
-							{%- if menu == "xtgl"%}
-								class="active"
-							{%- endif %}
-							onclick="iframe('xtgl')"><a href="javascript:void(0);">系统管理</a></li>
-						{%- endif %}
-						
-						{%- if obj.privilege_access_value == "Wdgl" and obj.privilege_operation != "0" %}
-						<li 
-							{%- if menu == "Wdgl"%}
-								class="active"
-							{%- endif %}
-							onclick="iframe('Wdgl')"><a href="javascript:void(0);">文档管理</a></li>
-						{%- endif %}
-					{%- endfor %}
-						<li 
-							{%- if menu == "Xmgl"%}
-								class="active"
-							{%- endif %}
-							onclick="iframe('Xmgl')"><a href="javascript:void(0);">项目管理</a></li>
-						<li 
-							{%- if menu == "Tjbb"%}
-								class="active"
-							{%- endif %}
-							onclick="iframe('Tjbb')"><a href="javascript:void(0);">统计报表</a></li>
-					</ul> -->
-				<!--</div><!--/.nav-collapse -->
-			<!--</div><!--/.container-fluid -->
-		<!--</div><!--/.navbar-inner -->
-	<!--</div><!--/.navbar -->
-	<!--**********************左侧导航*********************-->
+
+	<!--**********************************************左侧导航**********************************************-->
 	<div class="left">
 		<div class="logo" onclick="iframe('welcome')">
 			<a href="#"><img src="../static/img/logo.png" alt=""></a>
 		</div>			
 		<ul class="nav">
 		{%- for obj in privileges %}
+		<!--***************************报销管理*******************************-->
 			{%- if obj.privilege_access_value == "bxgl" and obj.privilege_operation != "0" %}
-			<li title="报销管理" class="menu-list
-					{%- if menu == "xxgl"%}
-						active
-					{%- elif menu == "dsp"%}							
-						active
-					{%- endif %}
-					" onclick="showMenu(this)">
+			<li title="报销管理"
+				{%- if menu == "xxgl"%}
+					class="menu-list active"
+				{%- elif menu == "dsp"%}
+					class="menu-list active"
+				{%- else -%}
+					class="menu-list"
+				{%- endif %}
+				onclick="showMenu(this)">
 				<a href="javascript:void(0);"><i class="icon bx"></i>报销管理<i class="pull-right"></i></a>						
-				<ul class="second-nav 
+				<ul id="xxgl" 
 					{%- if menu != "xxgl" and menu != "dsp" %}
-						hidden
+						 class="second-nav hidden"
+					{%- else -%}
+						class="second-nav"
 					{%- endif %}
-					" id="xxgl">					
+					>					
 				{%- for obj in privileges %}
 					{%- if obj.privilege_access_value == "xzfy" and obj.privilege_operation != "0" %}
-					<li onclick="changeiframe('xzfy/new_xzfy');checkSecond(this,event);" id="xzfy" class="
+					<li onclick="changeiframe('xzfy/new_xzfy');checkSecond(this,event);" id="xzfy" 
 						{%- if menu == "xxgl"%}
-							second-active
+							class="second-active"
 						{%- endif %}									
-						" >
+						>
 						<a href="javascript:void(0);">新增费用</a>
 					</li>
 					{%- endif %}
@@ -131,45 +77,54 @@
 					</li>
 					{%- endif %}
 					{%- if obj.privilege_access_value == "fysp" and obj.privilege_operation != "0" %}
-					<li onclick="changeiframe('fysp/fysp_search');checkSecond(this,event);" id="fysp" class="
-								{%- if menu == "dsp"%}
-									second-active
-								{%- endif %}									
-								">
+					<li onclick="changeiframe('fysp/fysp_search');checkSecond(this,event);" id="fysp" 
+						{%- if menu == "dsp"%}
+							class="second-active"
+						{%- endif %}									
+						>
 						<a href="javascript:void(0);">费用审批</a>
 					</li>
 					{%- endif %}
 					{%- if obj.privilege_access_value == "fytj" and obj.privilege_operation != "0" %}
-						<li onclick="changeiframe('fytj/fytj_search');checkSecond(this,event);" id="fytj">
+					<li onclick="changeiframe('fytj/fytj_search');checkSecond(this,event);" id="fytj">
 						<a href="javascript:void(0);">费用统计</a>
-						</li>
-					</li>  
+					</li>
 					{%- endif %}
 				{%- endfor %}
 					{%- if userId==2 or userId==146%}
-						<li onclick="changeiframe('fysp/fyzf_search');checkSecond(this,event);" id="fyzf">
-							<a href="javascript:void(0);">费用支付</a>
-						</li>
+					<li onclick="changeiframe('fysp/fyzf_search');checkSecond(this,event);" id="fyzf">
+						<a href="javascript:void(0);">费用支付</a>
+					</li>
 					{%- endif %}
 				</ul>
 			</li>
-			{%- endif %}								
+			{%- endif %}	
+			
+		<!--***************************系统管理*******************************-->
 			{%- if obj.privilege_access_value == "xtgl" and obj.privilege_operation != "0" %}
-			<li title="系统管理" class="menu-list
+			<li title="系统管理"
 					{%- if menu == "xtgl"%}
-						active
+						class="menu-list active"
+					{%- else -%}
+						class="menu-list"
 					{%- endif %}
-					" onclick="showMenu(this)">
+					onclick="showMenu(this)">
 				<a href="javascript:void(0);"><i class="icon xt"></i>系统管理<i class="pull-right"></i></a>						
-				<ul class="second-nav 
+				<ul id="xtgl" 
 					{%- if menu != "xtgl"%}
-						hidden
+						class="second-nav hidden"
+					{%- else -%}
+						class="second-nav"
 					{%- endif %}
-					" id="xtgl">
+					>
 				<!-- 系统管理员 -->
 				{%- for obj in privileges %}
 					{%- if obj.privilege_access_value == "sygl" and obj.privilege_operation != "0" %}
-					<li onclick="changeiframe('System/reason/1');checkSecond(this,event)" id="sygl" class="second-active">
+					<li onclick="changeiframe('System/reason/1');checkSecond(this,event)" id="sygl"
+						{%- if menu == "xtgl"%}
+							class="second-active"
+						{%- endif %}
+						>
 						<a href="javascript:void(0);">事由管理</a>
 					</li>
 					{%- endif %}
@@ -216,22 +171,32 @@
 				{%- endfor %}
 				</ul>
 			</li>
-			{%- endif %}					
+			{%- endif %}	
+
+		<!--***************************文档管理*******************************-->			
 			{%- if obj.privilege_access_value == "Wdgl" and obj.privilege_operation != "0" %}
-			<li title="文档管理" class="menu-list
+			<li title="文档管理"
 				{%- if menu == "Wdgl"%}
-						active
-					{%- endif %}
-					" onclick="showMenu(this)">
-				<a href="javascript:void(0);"><a href="#"><i class="icon wd"></i>文档管理<i class="pull-right"></i></a>
-				<ul class="second-nav 
+					class="menu-list active"
+				{%- else -%}
+					class="menu-list"
+				{%- endif %}
+				onclick="showMenu(this)">
+				<a href="javascript:void(0);"><i class="icon wd"></i>文档管理<i class="pull-right"></i></a>
+				<ul id="Wdgl" 
 					{%- if menu != "Wdgl" %}
-						hidden
+						class="second-nav hidden"
+					{%- else -%}
+						class="second-nav"
 					{%- endif %}
-					" id="Wdgl">
+					>
 				{%- for obj in privileges %}
 					{%- if obj.privilege_access_value == "wdgl" and obj.privilege_operation != "0" %}				
-					<li onclick="changeiframe('wdgl/wdgl');checkSecond(this,event)" id="wdgl" class="second-active">
+					<li onclick="changeiframe('wdgl/wdgl');checkSecond(this,event)" id="wdgl"
+						{%- if menu == "Wdgl"%}
+							class="second-active"
+						{%- endif %}
+						>
 						<a href="javascript:void(0);">文档管理</a>
 					</li>
 					{%- endif %}
@@ -239,22 +204,32 @@
 				</ul>
 			</li>
 			{%- endif %}
+			
+		<!--***************************项目管理*******************************-->
 			{%- if obj.privilege_access_value == "xmgl" and obj.privilege_operation != "0" %}		
-			<li title="项目管理"  class="menu-list
+			<li title="项目管理"  
 					{%- if menu == "xmgl"%}
-						active
+						class="menu-list active"
+					{%- else -%}
+						class="menu-list"
 					{%- endif %}
-					" onclick="showMenu(this)">
+					onclick="showMenu(this)">
 				<a href="javascript:void(0);"><i class="icon xm"></i>项目管理<i class="pull-right"></i></a>
-				<ul class="second-nav
+				<ul id="Xmgl"
 					{%- if menu != "xmgl" %}
-						hidden
+						class="second-nav hidden"
+					{%- else -%}
+						class="second-nav"
 					{%- endif %}
-					" id="Xmgl">
+					>
 				
-					{%- for obj in privileges %}
+				{%- for obj in privileges %}
 					{%- if obj.privilege_access_value == "grxm" and obj.privilege_operation != "0" %}			
-					<li onclick="changeiframe('xmgl/grxm');checkSecond(this,event)" id="grxm" class="second-active">
+					<li onclick="changeiframe('xmgl/grxm');checkSecond(this,event)" id="grxm"
+						{%- if menu == "xmgl"%}
+							class="second-active"
+						{%- endif %}
+						>
 						<a href="javascript:void(0);">个人项目</a>
 					</li>
 					{%- endif %}
@@ -263,26 +238,35 @@
 						<a href="javascript:void(0);">管理项目</a>
 					</li>
 					{%- endif %}
-					{%- endfor %}
+				{%- endfor %}
 				</ul>
 			</li>	
 			{%- endif %}
+			
+		<!--***************************统计报表*******************************-->
 			{%- if obj.privilege_access_value == "Tjbb" and obj.privilege_operation != "0" %}
-
-			<li title="统计报表" class="menu-list
+			<li title="统计报表"
 					{%- if menu == "Tjbb"%}
-						active
+						class="menu-list active"
+					{%- else -%}
+						class="menu-list"
 					{%- endif %}
-					" onclick="showMenu(this)">
+					onclick="showMenu(this)">
 				<a href="javascript:void(0);"><i class="icon tj"></i>统计报表<i class="pull-right"></i></a>
-				<ul class="second-nav 
+				<ul id="Tjbb"
 					{%- if menu != "Tjbb" %}
-						hidden
+						class="second-nav hidden"
+					{%- else -%}
+						class="second-nav"
 					{%- endif %}
-					" id="Tjbb">
+					>
 					{%- for obj in privileges %}
 					{%- if obj.privilege_access_value == "ndfytj" and obj.privilege_operation != "0" %}		
-					<li onclick="changeiframe('tjbb/ndfytj_search');checkSecond(this,event)" id="ndfytj" class="second-active">
+					<li onclick="changeiframe('tjbb/ndfytj_search');checkSecond(this,event)" id="ndfytj"
+						{%- if menu == "Tjbb"%}
+							class="second-active"
+						{%- endif %}
+						>
 						<a href="javascript:void(0);">年度费用统计</a>
 					</li>
 					{%- endif%}
@@ -309,10 +293,8 @@
 					{%- endfor %}
 				</ul>
 			</li>
-			{%- endif %}
-			
-			{%- endfor %}
-	
+			{%- endif %}			
+		{%- endfor %}	
 		</ul>			
 	</div>	
 	<!--**********************右侧页面*********************-->
@@ -331,7 +313,7 @@
 			{%- elif menu == "Tjbb" %}
 				src="tjbb/ndfytj_search"
 			{%- endif %}
-		width="100%" height="100%" id="content_frame" name="content_frame" marginheight="0" marginwidth="0" height="100%" style="*height:530px;"></iframe>
+		width="100%" id="content_frame" name="content_frame" marginheight="0" marginwidth="0" height="100%"></iframe>
 		
 	</div><!--/bottom-->
 	
@@ -344,14 +326,7 @@
 	<script src="../static/js/index.js"></script>
 	<script src="../static/js/index2.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){			
-			$(".close").mouseover(function(){//关闭按钮鼠标经过
-				$(this).attr('src','/static/img/closehover.png')
-			});
-			$(".close").mouseout(function(){//关闭按钮鼠标离开
-				$(this).attr('src','/static/img/close.png')
-			});
-		});
+		
 	</script>	
 </body>
 </html>
