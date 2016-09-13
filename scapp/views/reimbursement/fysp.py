@@ -120,10 +120,35 @@ def fysp_list(page,userId):
     approve=Approve()
     data_project=approve.get_approval_by_project(current_user.id)
     data_org=approve.get_approval_by_org(current_user.id)
-    try:
-        data=data_project.union(data_org).paginate(page, per_page = PER_PAGE)
-    except:
-        data = data_project.union(data_org).paginate(page-1, per_page = PER_PAGE)
+    if request.method== 'GET':
+        try:
+            data=data_project.union(data_org).filter_by(create_user=userId).paginate(page, per_page = PER_PAGE)
+        except:
+            data = data_project.union(data_org).filter_by(create_user=userId).paginate(page-1, per_page = PER_PAGE)
+
+    elif request.method=='POST':
+        org_id=request.form['org_id']
+        project_id=request.form['project_id']
+
+        if org_id is not None:
+            try:
+                data=data_project.union(data_org).filter_by(approval=org_id,approval_type=1)\
+                    .paginate(page, per_page = PER_PAGE)
+            except:
+                data=data_project.union(data_org).filter_by(approval=org_id,approval_type=1)\
+                    .paginate(page-1, per_page = PER_PAGE)
+        elif project_id is not None:
+            try:
+                 data=data_project.union(data_org).filter_by(approval=project_id,approval_type=2)\
+                    .paginate(page, per_page = PER_PAGE)
+            except:
+                 data=data_project.union(data_org).filter_by(approval=project_id,approval_type=2)\
+                    .paginate(page-1, per_page = PER_PAGE)
+        else:
+            try:
+                 data=data_project.union(data_org).paginate(page, per_page = PER_PAGE)
+            except:
+                 data=data_project.union(data_org).paginate(page-1, per_page = PER_PAGE)
     # #搜索条件
     # org_id="-1"
     # project_id="-1"
