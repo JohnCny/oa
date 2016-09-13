@@ -11,7 +11,7 @@ from scapp.logic.reimbursement import costs_statistics
 from scapp.config import logger
 from scapp import app
 from scapp import db
-from scapp.tools.flash_pic import flash_pic
+# from scapp.tools.flash_pic import flash_pic
 
 import hashlib
 import datetime

@@ -8,6 +8,7 @@ from scapp.config import logger
 
 class State_Project(State):
 
+
     #审批通过
     def approval_success(self,id,cur_user):
 
