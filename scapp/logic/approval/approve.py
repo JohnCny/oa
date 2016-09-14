@@ -4,6 +4,8 @@ __author__ = 'Johnny'
 from scapp.models import OA_Reimbursement
 from scapp.logic import State_Factory
 from scapp.config import PER_PAGE
+from scapp.logic.constant.query_sql import QUERY_SUM_AMOUNT_BY_USER
+from scapp import db
 
 class Approve():
     #获取当前所属项目审批报销
@@ -26,10 +28,15 @@ class Approve():
         approval_project=self.get_approval_by_project(cur_user.id)
         approval_org=self.get_approval_by_org(cur_user.id)
 
-        approval_project[0:0]=approval_org
-        return approval_project
+        approval_paged=approval_project.union(approval_org).paginate(page, per_page = PER_PAGE)
 
-    # def get_approval_by_user_filter_cu(self,cur_user,create_user):
+        return approval_paged
+
+    #获取审批清单，按用户分组，统计总额
+    def get_sum_amount_by_create_user(self,approval_user):
+        sql=QUERY_SUM_AMOUNT_BY_USER%(approval_user.id,approval_user.id)
+        sum_amount_approval=db.session.execute(sql)
+        return sum_amount_approval
 
     #审批
     def do_approve(self,cur_user,id,approval_type,result,reason):

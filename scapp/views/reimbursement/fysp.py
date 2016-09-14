@@ -2,6 +2,7 @@
 from scapp import db
 from scapp.config import PER_PAGE,EMAIL_SERVER,EMAIL_SEND
 from scapp.config import logger
+from sqlalchemy import func
 from scapp.config import Approval_type_ORG,Approval_type_PRJ,Approval_type_CAIWU
 import scapp.helpers as helpers
 import datetime,time
@@ -48,70 +49,84 @@ def fysp_search():
 #费用审批总单
 @app.route('/fysp/fysp_total',methods=['GET','POST'])
 def fysp_total():
-    #搜索条件
-    org_id="-1"
-    project_id="-1"
-    #POST时有搜索条件
-    if request.method == 'POST':
-        if request.form['org_id']:
-            org_id = request.form['org_id']
-            project_id = request.form['project_id']
-    
-    sql =" is_refuse=0 and is_paid =0 "
-    #财务总监
-    if current_user.id is not 15:
-        sql+=" and approval_type!=4 "
-    orgAll = OA_Org.query.filter("manager="+str(current_user.id)+" and version='2015'").all()
-    sql+=" and ("
-    if org_id == "-1":
-        if len(orgAll)>0:
-            appreval ="("
-            #判断是否含有财务部门
-            type ='1'
-            for i in orgAll:
-                appreval=appreval+str(i.id)+","
-                if i.is_caiwu==1:
-                    type='2'
-            if len(appreval)>1:
-                appreval=appreval[0:len(appreval)-1]
-            appreval+=")"
-            sql += " (approval in "+appreval
-            #含财务部门
-            if type=='2':
-                sql += " or approval_type = 3)"
-            else:
-                sql += " and approval_type=1)"
-        else:
-           sql +=" approval is null" 
+    # #搜索条件
+    # org_id="-1"
+    # project_id="-1"
+    # #POST时有搜索条件
+    # if request.method == 'POST':
+    #     if request.form['org_id']:
+    #         org_id = request.form['org_id']
+    #         project_id = request.form['project_id']
+    #
+    # sql =" is_refuse=0 and is_paid =0 "
+    # #财务总监
+    # if current_user.id is not 15:
+    #     sql+=" and approval_type!=4 "
+    # orgAll = OA_Org.query.filter("manager="+str(current_user.id)+" and version='2015'").all()
+    # sql+=" and ("
+    # if org_id == "-1":
+    #     if len(orgAll)>0:
+    #         appreval ="("
+    #         #判断是否含有财务部门
+    #         type ='1'
+    #         for i in orgAll:
+    #             appreval=appreval+str(i.id)+","
+    #             if i.is_caiwu==1:
+    #                 type='2'
+    #         if len(appreval)>1:
+    #             appreval=appreval[0:len(appreval)-1]
+    #         appreval+=")"
+    #         sql += " (approval in "+appreval
+    #         #含财务部门
+    #         if type=='2':
+    #             sql += " or approval_type = 3)"
+    #         else:
+    #             sql += " and approval_type=1)"
+    #     else:
+    #        sql +=" approval is null"
+    # else:
+    #     org = OA_Org.query.filter_by(id=org_id).first()
+    #     if org:
+    #         if org.is_caiwu=='1':
+    #             sql +=" approval_type = 3"
+    #         else:
+    #             sql += " (approval="+org_id+" and approval_type = 1)"
+    # #前台没有选择项目
+    # da = OA_Project.query.filter("manager_id="+str(current_user.id)+" and version='2015'").all()
+    # if project_id == "-1":
+    #     if len(da)>0:
+    #         app ="("
+    #         for i in da:
+    #             app=app+str(i.id)+","
+    #         if len(app)>1:
+    #             app=app[0:len(app)-1]
+    #         app+=")"
+    #         sql += " or (approval in "+app+" and approval_type = 2)"
+    # #前台选择项目
+    # else:
+    #     sql += " or (approval="+project_id+" and approval_type = 2)"
+    # sql+=")"
+    # sql+=" group by create_user"
+    # if len(orgAll)>0 or len(da)>0:
+    #     data = db.session.execute(   "select a.create_user,count(*) as count ,(select real_name from oa_user b where b.id=a.create_user) as real_name,sum(a.amount) as amount from oa_reimbursement a where "+sql).fetchall()
+    #
+    # else:
+    #     data=""
+    org_id=request.form['org_id']
+    project_id=request.form['project_id']
+
+    approve=Approve()
+    data_total=approve.get_sum_amount_by_create_user(current_user)
+
+    if org_id is not None:
+        data=data_total
+    elif project_id is not None:
+        data=data_total
     else:
-        org = OA_Org.query.filter_by(id=org_id).first()
-        if org:
-            if org.is_caiwu=='1':
-                sql +=" approval_type = 3"
-            else:
-                sql += " (approval="+org_id+" and approval_type = 1)"
-    #前台没有选择项目
-    da = OA_Project.query.filter("manager_id="+str(current_user.id)+" and version='2015'").all()
-    if project_id == "-1":
-        if len(da)>0:
-            app ="("
-            for i in da:
-                app=app+str(i.id)+","
-            if len(app)>1:
-                app=app[0:len(app)-1]
-            app+=")"
-            sql += " or (approval in "+app+" and approval_type = 2)"
-    #前台选择项目
-    else:
-        sql += " or (approval="+project_id+" and approval_type = 2)"
-    sql+=")"
-    sql+=" group by create_user"
-    if len(orgAll)>0 or len(da)>0:
-        data = db.session.execute("select a.create_user,count(*) as count ,(select real_name from oa_user b where b.id=a.create_user) as real_name,sum(a.amount) as amount from oa_reimbursement a where "+sql).fetchall()
-    
-    else:
-        data=""
-    return render_template("bxsq/fysp/fysp_total.html",data=data,org_id=org_id,project_id=project_id)
+        data=data_total
+
+
+    return render_template("bxsq/fysp/fysp_total.html",data=data)
 
 
 #费用审批查询详情
