@@ -10,18 +10,16 @@
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
 	<link href="/static/css/main2.css" rel="stylesheet">
-	<link href="/static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
 	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<!--<script src="../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
 	<style type="text/css">
+		.alert{width:90%;margin-left:2.5%;margin-bottom:0;margin-top:20px;}
 	</style>
 	
 </head>
 
-<body onload="datepicker();setTimeOut();">
+<body onload="setTimeOut();">
 	<form class="content" id='content' name='content'method='post'>	
 		<h1>个人查询</h1>
 		<h2>当前位置：报销管理 / <span>个人查询</span></h2>
@@ -31,7 +29,7 @@
 		{%- with messages = get_flashed_messages(with_categories=true) %}
 		  	{%- if messages %}
 	    	{%- for category, message in messages %}
-	    	<div class="alert alert-{{category}}" style="width:245px;margin:-10px auto 10px;">
+	    	<div class="alert alert-{{category}}">
 	      		{{message}}
 	      	</div>
 	    	{%- endfor %}
@@ -101,27 +99,25 @@
 				</tbody>
 			</table>
 			<div class="page-div">
-					{%- if data.has_prev %}
-						<span style="CURSOR: pointer" onclick="submitForm('content','/grcx/grcx_list/{{data.prev_num}}/pc')">&lt;&lt;</span>
-					{%- else %}
-						<span style="CURSOR: pointer">&lt;&lt;</span>
-					{%- endif %}
-					&#160;第&#160;<font color="#0088cc">{{data.page}}</font>&#160;页&#160;
-					&#160;共&#160;<font color="#0088cc">{{data.pages}}</font>&#160;页&#160;
-					{%- if data.has_next %}
-						<span style="CURSOR: pointer" onclick="submitForm('content','/grcx/grcx_list/{{data.next_num}}/pc')">&gt;&gt;</span>
-					{%- else %}
-						<span style="CURSOR: pointer">&gt;&gt;</span>
-					{%- endif %}
+				{%- if data.has_prev %}
+					<span style="CURSOR: pointer" onclick="submitForm('content','/grcx/grcx_list/{{data.prev_num}}/pc')">&lt;&lt;</span>
+				{%- else %}
+					<span style="CURSOR: pointer">&lt;&lt;</span>
+				{%- endif %}
+				&#160;第&#160;<font color="#0088cc">{{data.page}}</font>&#160;页&#160;
+				&#160;共&#160;<font color="#0088cc">{{data.pages}}</font>&#160;页&#160;
+				{%- if data.has_next %}
+					<span style="CURSOR: pointer" onclick="submitForm('content','/grcx/grcx_list/{{data.next_num}}/pc')">&gt;&gt;</span>
+				{%- else %}
+					<span style="CURSOR: pointer">&gt;&gt;</span>
+				{%- endif %}
 			</div>
-		</div><!--/row-fluid -->
-		
+		</div>
 	</form>	
 
 	<script src="/static/js/jquery-1.7.2.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/script.js"></script>
-	<script src="/static/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">
 		var max=0;
 		var jegs=0;

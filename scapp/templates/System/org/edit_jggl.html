@@ -28,14 +28,14 @@
 			<table>
 				<tr>
 					<td class="pull-right">部门名称<font class="red">*</font>：</td>
-					<td>
+					<td style="width:35%">
 						<span id="spry_jgmc">
 							<input type="text" name="name" value={{obj.name}} />
-							<span class="textfieldRequiredMsg">部门名称不能为空</span>
+							<span class="textfieldRequiredMsg">不能为空</span>
 						</span>
 					</td>	
 					<td class="pull-right">是否财务部<font class="red">*</font>：</td>	
-					<td>
+					<td style="width:35%">
 						<select name="is_caiwu">
 							<option value="0">否</option>
 							<option value="1">是</option>
@@ -108,8 +108,9 @@
 		<div class="dialog">
 			<div class="background">				
 				<div class="dialog-box common" style="width:500px;">
-					<h5>搜索：<input type="text" onchange="search(this)" class="short" placeholder="用户名称"/></h5>
-					<img class="close" src="../../../static/img/close.jpg" onclick="$('.dialog').hide();"/>
+					<h5>搜索：
+					<img class="close" src="/static/img/close.jpg" onclick="$('.dialog').hide();" style="margin-top:0px;"/>
+					<input type="text" onchange="search(this)" class="short" placeholder="用户名称"/></h5>
 					<div class="report common tableB">
 						<table class="center">
 								<tr>

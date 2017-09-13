@@ -8,37 +8,38 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="../../static/css/bootstrap.css" rel="stylesheet">
-	<link href="../../static/css/main2.css" rel="stylesheet">
-	<link href="../../static/css/datepicker.css" rel="stylesheet">
+	<link href="/static/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/css/main2.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
-	<script src="../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<script src="../../static/js/jquery-1.7.2.min.js"></script>
-	<script src="../../static/js/bootstrap.min.js"></script>
-	<script src="../../static/js/script.js"></script>
-	<script src="../../static/js/bootstrap-datepicker.js"></script>
+	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+	<script src="/static/js/jquery-1.7.2.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/script.js"></script>
+	<style type="text/css">
+		.alert{width:90%;margin-left:2.5%;margin-bottom:0;margin-top:20px;}
+	</style>
 </head>
 
-<body onload="datepicker();">	
+<body>	
 	<form class="content" method="POST" action="/fysp/fysp_total">		
 		<h1>费用审批</h1>
-		<h2>当前位置：报销管理 / <span>费用审批</span></h2>	
-		{%- with messages = get_flashed_messages(with_categories=true) %}
-		  	{%- if messages %}
-	    	{%- for category, message in messages %}
-	    	<div class="alert alert-{{category}}">
-	      		{{message}}
-	      	</div>
-	    	{%- endfor %}
-		  	{%- endif %}
-		{%- endwith %}
+		<h2>当前位置：报销管理 / <span>费用审批</span></h2>			
+	{%- with messages = get_flashed_messages(with_categories=true) %}
+		{%- if messages %}
+		{%- for category, message in messages %}
+		<div class="alert alert-{{category}}">
+			{{message}}
+		</div>
+		{%- endfor %}
+		{%- endif %}
+	{%- endwith %}
 		
 		<div class="report common">
 			<h5>查询条件</h5>
 			<table >						
 				<tr>
-					<td class="pull-right">负责部门</td>
+					<td class="pull-right">负责部门：</td>
 					<td colspan="1">
 						<select name="org_id" style="width:260px;">
 							{%- if orgs %}
@@ -51,7 +52,7 @@
 							{%- endfor %}
 						</select>
 					</td>
-					<td class="pull-right">负责项目</td>
+					<td class="pull-right">负责项目：</td>
 					<td colspan="1">
 						<select name="project_id" style="width:260px;">
 							{%- if projects %}

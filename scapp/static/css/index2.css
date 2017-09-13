@@ -1,4 +1,5 @@
 *{margin:0;padding:0;font-family:微软雅黑;border:none;}
+a{text-decoration:none;cursor:pointer;}
 body{background:#eff0f4;}
 /*弹出框*/
 	.dialog{width:100%;height:100%;position:fixed;top:0;z-index:1000000;display:none;}

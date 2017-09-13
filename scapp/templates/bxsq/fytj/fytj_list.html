@@ -8,38 +8,26 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="/static/css/bootstrap.css" rel="stylesheet">
-	<link href="/static/css/main2.css" rel="stylesheet">
-	<link href="/static/css/datepicker.css" rel="stylesheet">
+	<link href="../../../static/css/bootstrap.css" rel="stylesheet">
+	<link href="../../../static/css/main2.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
-	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
-	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<!--<script src="../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
+	<script src="../../../static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+	<link href="../../../static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
 	<style type="text/css">
-		.table-list .table-label{width:140px;}
 	</style>
 	
 </head>
 
-<body onload="datepicker();setTimeOut();">
+<body>
 	<form id="content" class="content" method="POST">	
 		<h1>费用统计</h1>
 		<h2>当前位置：报销管理 / <span>费用统计</span></h2>
-			<input type="hidden" name="beg_date" value="{{beg_date}}">
-			<input type="hidden" name="end_date" value="{{end_date}}">
-			<input type="hidden" name="is_paid" value="{{is_paid}}">
-			<input type="hidden" name="node_id" value="{{node_id}}">
-			<input type="hidden" name="node_type" value="{{node_type}}">
-		{%- with messages = get_flashed_messages(with_categories=true) %}
-		  	{%- if messages %}
-	    	{%- for category, message in messages %}
-	    	<div class="alert alert-{{category}}" style="width:245px;margin:-10px auto 10px;">
-	      		{{message}}
-	      	</div>
-	    	{%- endfor %}
-		  	{%- endif %}
-		{%- endwith %}
+		<input type="hidden" name="beg_date" value="{{beg_date}}">
+		<input type="hidden" name="end_date" value="{{end_date}}">
+		<input type="hidden" name="is_paid" value="{{is_paid}}">
+		<input type="hidden" name="node_id" value="{{node_id}}">
+		<input type="hidden" name="node_type" value="{{node_type}}">
+	
 		<div class="report common tableB">			
 			<h5>费用统计</h5>				
 			<table class="center" id="uesr-list">
@@ -82,27 +70,26 @@
 				</tbody>					
 			</table>
 			<div class="page-div">
-					{%- if data.has_prev %}
-						<span style="CURSOR: pointer" onclick="submitForm('content','/fytj/fytj_list/{{data.prev_num}}')">&lt;&lt;</span>
-					{%- else %}
-						<span style="CURSOR: pointer">&lt;&lt;</span>
-					{%- endif %}
-					&#160;第&#160;<font color="#0088cc">{{data.page}}</font>&#160;页&#160;
-					&#160;共&#160;<font color="#0088cc">{{data.pages}}</font>&#160;页&#160;
-					{%- if data.has_next %}
-						<span style="CURSOR: pointer" onclick="submitForm('content','/fytj/fytj_list/{{data.next_num}}')">&gt;&gt;</span>
-					{%- else %}
-						<span style="CURSOR: pointer">&gt;&gt;</span>
-					{%- endif %}
+				{%- if data.has_prev %}
+					<span style="CURSOR: pointer" onclick="submitForm('content','/fytj/fytj_list/{{data.prev_num}}')">&lt;&lt;</span>
+				{%- else %}
+					<span style="CURSOR: pointer">&lt;&lt;</span>
+				{%- endif %}
+				&#160;第&#160;<font color="#0088cc">{{data.page}}</font>&#160;页&#160;
+				&#160;共&#160;<font color="#0088cc">{{data.pages}}</font>&#160;页&#160;
+				{%- if data.has_next %}
+					<span style="CURSOR: pointer" onclick="submitForm('content','/fytj/fytj_list/{{data.next_num}}')">&gt;&gt;</span>
+				{%- else %}
+					<span style="CURSOR: pointer">&gt;&gt;</span>
+				{%- endif %}
 			</div>
 		</div><!--/row-fluid -->
 		
 	</form>	
 
-	<script src="/static/js/jquery-1.7.2.min.js"></script>
-	<script src="/static/js/bootstrap.min.js"></script>
-	<script src="/static/js/script.js"></script>
-	<script src="/static/js/bootstrap-datepicker.js"></script>
+	<script src="../../../static/js/jquery-1.7.2.min.js"></script>
+	<script src="../../../static/js/bootstrap.min.js"></script>
+	<script src="../../../static/js/script.js"></script>
 	<script type="text/javascript">
 		var max=0;
 		var jegs=0;

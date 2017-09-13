@@ -10,25 +10,21 @@
 	<!-- The styles -->
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
 	<link href="/static/css/main2.css" rel="stylesheet">
-	<link href="/static/css/datepicker.css" rel="stylesheet">
 	<!-- ************************验证样式************************-->
 	<script src="/static/SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 	<link href="/static/SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
-	<!--<script src="../../static/SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-	<link href="../../static/SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css" />-->
 	<style type="text/css">
 	</style>
 	
 </head>
 
-<body onload="datepicker();setTimeOut();">
-	<form class="content" id="fybx" method="POST" action="/fysp/fysp_check/{{reimbursement.id}}/{{parentPage}}/{{create_user}}" >	
-			
+<body >
+	<form class="content" id="fybx" method="POST" action="/fysp/fysp_check/{{reimbursement.id}}/{{parentPage}}/{{create_user}}" >				
 		<div class="report common">			
 			<h5>报销单</h5>
 			<table id="table2" class="bxd">
 				<tr>
-					<td>项目名称：<span id="xmmc"></span>
+					<td style="50%">项目名称：<span id="xmmc"></span>
 						<div class="hideSelect"><select name="project_id" class="disabled" id="select1" disabled>
 							{%- for obj in project %}
 								{%- if reimbursement.project_id == obj.id %}
@@ -195,7 +191,7 @@
 			<h5>审批</h5>
 			<table id="bxmx">
 				<tr>
-					<td class="pull-right">审批决定<font class="red">*</font></td>
+					<td class="pull-right">审批决定<font class="red">*</font>：</td>
 					<td width="35%">
 						<select name="decision" onchange="setTextarea()" id="decision" >
 							<option value="1">通过</option>
@@ -203,7 +199,7 @@
 							<option value="3">退回</option>
 						</select>
 					</td>	
-					<td class="pull-right">拒绝或退回原因</td>
+					<td class="pull-right">拒绝或退回原因：</td>
 					<td>
 						<textarea name="fail_reason" class="tbInput" disabled id="jjyy"></textarea>
 					</td>
@@ -219,7 +215,6 @@
 	<script src="/static/js/jquery-1.7.2.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/script.js"></script>
-	<script src="/static/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">		
 		var sprytextfield1 = new Spry.Widget.ValidationTextField("amount", "none");	
 		function setTextarea(){

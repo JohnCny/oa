@@ -26,7 +26,6 @@
 				项目列表
 				<input type="button" value="新 增" class="downLoad" onclick="iframe('System/new_project')">
 			</h5>		
-		<div class="row-fluid">
 			{%- with messages = get_flashed_messages(with_categories=true) %}
 			  	{%- if messages %}
 		    	{%- for category, message in messages %}
@@ -74,7 +73,7 @@
 					{%- endif %}
 				</div>
 			</div>
-		</div><!--/row-fluid -->
+		</div>
 	</div><!--/content -->
 	
 	<script src="/static/js/jquery-1.7.2.min.js"></script>
